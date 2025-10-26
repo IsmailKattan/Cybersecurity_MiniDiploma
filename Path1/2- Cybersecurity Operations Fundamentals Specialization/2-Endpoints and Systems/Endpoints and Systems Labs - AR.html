@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تدريب عملي على Linux Command Shell Concepts</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.8;
+        }
+        
+        .document {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header .emoji {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .objective {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .objective h2 {
+            font-size: 1.4em;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .objective p {
+            font-size: 1.05em;
+            line-height: 1.9;
+        }
+        
+        .section {
+            margin-bottom: 45px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            background: #f7fafc;
+            border-right: 5px solid #667eea;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+        
+        .section-title h3 {
+            color: #2d3748;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        
+        .subsection {
+            margin-bottom: 25px;
+            padding-right: 10px;
+        }
+        
+        .subsection h4 {
+            color: #4a5568;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #68d391;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            margin: 15px 0;
+            overflow-x: auto;
+            border: 2px solid #4a5568;
+            direction: ltr;
+            text-align: left;
+        }
+        
+        .code-block code {
+            display: block;
+            white-space: pre;
+        }
+        
+        .result-box {
+            background: #ebf8ff;
+            border-right: 4px solid #4299e1;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .result-box p {
+            color: #2c5282;
+            margin-bottom: 8px;
+        }
+        
+        .result-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .note {
+            background: #fffaf0;
+            border-right: 4px solid #ed8936;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .note p {
+            color: #7c2d12;
+        }
+        
+        .icon {
+            margin-left: 8px;
+        }
+        
+        .divider {
+            height: 3px;
+            background: linear-gradient(to left, #667eea, #764ba2);
+            margin: 40px 0;
+            border-radius: 2px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 50px;
+            border-top: 2px solid #e2e8f0;
+            color: #718096;
+            font-size: 0.95em;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .document {
+                box-shadow: none;
+                padding: 40px;
+            }
+        }
+        
+        .command {
+            color: #68d391;
+            font-weight: 600;
+        }
+        
+        .comment {
+            color: #a0aec0;
+        }
+    </style>
+</head>
+<body>
+    <div class="document">
+        <div class="header">
+            <div class="emoji">🧪</div>
+            <h1>تدريب عملي على Linux Command Shell Concepts</h1>
+        </div>
+        
+        <div class="objective">
+            <h2>🎯 الهدف من التدريب</h2>
+            <p>فهم المتغيرات البيئية (Environment Variables)، وإعادة توجيه الإدخال والإخراج (STDIN, STDOUT, STDERR)، وكيفية تشغيل سكريبت بسيط في بيئة Linux.</p>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 1️⃣: عرض قيمة متغير PATH</h3>
+            </div>
+            
+            <div class="code-block">
+                <code>echo $PATH</code>
+            </div>
+            
+            <div class="result-box">
+                <p><strong>🔹 النتيجة المتوقعة:</strong> ستظهر قائمة من المجلدات مفصولة بنقطتين (:)</p>
+                <p><strong>🔹 الشرح:</strong> هذه هي الأماكن التي يبحث فيها النظام عن الأوامر القابلة للتنفيذ.</p>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 2️⃣: إنشاء متغير خاص بك</h3>
+            </div>
+            
+            <div class="code-block">
+                <code>MYTEST="This is my variable test"
+echo $MYTEST</code>
+            </div>
+            
+            <div class="result-box">
+                <p><strong>🔹 النتيجة المتوقعة:</strong> يعرض النص الذي خزّنته في المتغير.</p>
+            </div>
+            
+            <div class="note">
+                <p><strong>⚠️ ملاحظة هامة:</strong> هذا المتغير متاح فقط في الجلسة الحالية (Current Session). إذا أغلقت الـ Terminal سيتم فقدانه.</p>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 3️⃣: إنشاء سكريبت بسيط</h3>
+            </div>
+            
+            <div class="subsection">
+                <h4>3.1 إنشاء الملف</h4>
+                <div class="code-block">
+                    <code>nano MyTestApp</code>
+                </div>
+                <p style="margin: 15px 0;">أضف المحتوى التالي داخل الملف:</p>
+                <div class="code-block">
+                    <code>#!/bin/bash
+<span class="comment"># This is my test app</span>
+echo "Hello Cyber Security Students"</code>
+                </div>
+                <div class="note">
+                    <p><strong>💾 حفظ الملف:</strong> اضغط <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">Ctrl+X</code> ثم <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">Y</code> ثم <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">Enter</code></p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>3.2 جعل السكريبت قابلاً للتنفيذ</h4>
+                <div class="code-block">
+                    <code>chmod +x MyTestApp</code>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>3.3 تشغيل السكريبت</h4>
+                <div class="code-block">
+                    <code>./MyTestApp</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة المتوقعة:</strong> يظهر النص "Hello Cyber Security Students"</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 4️⃣: تجربة STDIN و STDOUT</h3>
+            </div>
+            
+            <div class="subsection">
+                <h4>4.1 تجربة STDIN عبر الأمر cat</h4>
+                <div class="code-block">
+                    <code>cat</code>
+                </div>
+                <p style="margin: 15px 0;">اكتب أي نص (مثل: <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">testing 123</code>)، ثم اضغط <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">Enter</code></p>
+                <div class="result-box">
+                    <p><strong>🔹 ما سيحدث:</strong> سترى أن النظام يعرض نفس النص مرة أخرى.</p>
+                    <p><strong>🔹 للخروج:</strong> اضغط <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">Ctrl+C</code></p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>4.2 تجربة STDOUT بالتوجيه إلى ملف</h4>
+                <div class="code-block">
+                    <code>echo "Test data" > test.txt
+cat test.txt</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة:</strong> الملف test.txt يحتوي على "Test data".</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>4.3 تجربة الإلحاق (Append) بدلاً من الاستبدال</h4>
+                <div class="code-block">
+                    <code>echo "More test data" >> test.txt
+cat test.txt</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة:</strong> الملف يحتوي الآن على سطرين:</p>
+                    <p style="font-family: monospace; margin-top:8px;">Test data<br>More test data</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 5️⃣: تجربة STDERR (رسائل الأخطاء)</h3>
+            </div>
+            
+            <div class="subsection">
+                <h4>5.1 محاولة الوصول إلى ملف غير موجود</h4>
+                <div class="code-block">
+                    <code>ls -l abc123.txt > output.txt</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 ما سيحدث:</strong> ستظهر رسالة خطأ على الشاشة لأن الملف غير موجود.</p>
+                    <p><strong>🔹 التفسير:</strong> هذا هو <strong>STDERR</strong> (Standard Error) - مخرج الأخطاء.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>5.2 توجيه الأخطاء إلى /dev/null (تجاهل الأخطاء)</h4>
+                <div class="code-block">
+                    <code>ls -l abc123.txt > output.txt 2> /dev/null</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة:</strong> لن تظهر أي رسالة خطأ على الشاشة.</p>
+                    <p><strong>🔹 الشرح:</strong> الرمز <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">2></code> يوجه STDERR، و <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">/dev/null</code> هو "سلة المهملات" في Linux.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>5.3 حفظ رسائل الأخطاء في ملف</h4>
+                <div class="code-block">
+                    <code>ls -l abc123.txt > output.txt 2> error_log.txt
+cat error_log.txt</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة:</strong> سترى رسالة الخطأ محفوظة داخل الملف <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">error_log.txt</code></p>
+                    <p><strong>🔹 الفائدة:</strong> هذا مفيد جداً لتتبع الأخطاء (Error Logging) في السكريبتات والتطبيقات.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 6️⃣: تطبيق عملي - تجربة الـ Pipe (|)</h3>
+            </div>
+            
+            <div class="note">
+                <p><strong>🔥 مهم جدًا للتدريب:</strong> هذا التطبيق يوضح كيفية ربط الأوامر ببعضها باستخدام Pipe.</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>6.1 عرض جميع العمليات الجارية</h4>
+                <div class="code-block">
+                    <code>ps -ef</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 ما سيحدث:</strong> يعرض قائمة كاملة بجميع العمليات (Processes) التي تعمل على النظام.</p>
+                    <p><strong>🔹 الشرح:</strong> ps = Process Status، -ef = عرض جميع العمليات بالتفصيل.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>6.2 تصفية النتائج باستخدام Pipe</h4>
+                <div class="code-block">
+                    <code>ps -ef | grep bash</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة:</strong> تظهر فقط العمليات التي تحتوي على كلمة "bash".</p>
+                    <p><strong>🔹 كيف يعمل:</strong> الـ Pipe (|) يأخذ مخرجات الأمر الأول (ps -ef) ويمررها كمدخل للأمر الثاني (grep bash).</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>6.3 إضافة أمر ثالث لترتيب النتائج</h4>
+                <div class="code-block">
+                    <code>ps -ef | grep bash | sort -d</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة:</strong> تظهر عمليات bash مرتبة أبجديًا.</p>
+                    <p><strong>🔹 الشرح:</strong> يمكنك ربط أي عدد من الأوامر باستخدام Pipe، حيث ينتقل المخرج من أمر لآخر بالتسلسل.</p>
+                    <p><strong>🔹 sort -d:</strong> يرتب النتائج في ترتيب القاموس (Dictionary order).</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 7️⃣: تطبيق عملي - تنفيذ أوامر متعددة</h3>
+            </div>
+            
+            <div class="subsection">
+                <h4>7.1 تنفيذ أوامر متعددة باستخدام &&</h4>
+                <div class="code-block">
+                    <code>echo "Hello" > file.txt && echo "World" >> file.txt && cat file.txt</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة المتوقعة:</strong></p>
+                    <p style="font-family: monospace; margin-top:8px; background:white; padding:10px; border-radius:4px;">Hello<br>World</p>
+                    <p style="margin-top:12px;"><strong>🔹 كيف يعمل:</strong> سيتم تنفيذ الأوامر الثلاثة بالتتابع فقط إذا لم يحدث خطأ.</p>
+                </div>
+            </div>
+            
+            <div style="background:#fff5f5;border-right:4px solid #fc8181;padding:20px;margin:20px 0;border-radius:4px;">
+                <p style="color:#742a2a;margin-bottom:10px;"><strong>⚡ الفرق بين && و ;</strong></p>
+                <p style="color:#742a2a;margin-bottom:8px;"><strong>• && :</strong> ينفذ الأمر التالي فقط إذا نجح الأمر السابق</p>
+                <p style="color:#742a2a;"><strong>• ; :</strong> ينفذ جميع الأوامر بالترتيب بغض النظر عن نجاح أو فشل الأوامر السابقة</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>7.2 مثال عملي للمقارنة</h4>
+                <div style="margin-bottom:20px;">
+                    <p style="margin-bottom:10px;"><strong>باستخدام && (ينفذ فقط عند النجاح):</strong></p>
+                    <div class="code-block">
+                        <code>ls abc123.txt && echo "File exists"</code>
+                    </div>
+                    <div class="result-box">
+                        <p><strong>النتيجة:</strong> لن يطبع "File exists" لأن الملف غير موجود (فشل الأمر الأول).</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <p style="margin-bottom:10px;"><strong>باستخدام ; (ينفذ دائمًا):</strong></p>
+                    <div class="code-block">
+                        <code>ls abc123.txt ; echo "This will always run"</code>
+                    </div>
+                    <div class="result-box">
+                        <p><strong>النتيجة:</strong> سيطبع "This will always run" حتى لو فشل الأمر الأول.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 8️⃣: أمر history - إدارة سجل الأوامر</h3>
+            </div>
+            
+            <div class="objective" style="margin-bottom:25px;">
+                <h2>📌 الهدف</h2>
+                <p>مشاهدة الأوامر السابقة وتنفيذها بسرعة بدون كتابتها من جديد.</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>8.1 عرض سجل الأوامر</h4>
+                <div class="code-block">
+                    <code>history</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة:</strong> يعرض قائمة بجميع الأوامر التي استخدمتها مسبقًا مع أرقامها التسلسلية.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>8.2 تنفيذ أمر قديم برقمه</h4>
+                <div class="code-block">
+                    <code>!25</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 الشرح:</strong> هذا سيعيد تنفيذ الأمر رقم 25 من سجل الأوامر تلقائياً.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>8.3 تكرار آخر أمر (!!) - مفيد جداً</h4>
+                <div class="code-block">
+                    <code>!!</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 الاستخدام:</strong> يكرر آخر أمر نفذته في الجلسة.</p>
+                </div>
+                
+                <div style="background:#f0fff4;border-right:4px solid #48bb78;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#22543d;margin-bottom:12px;"><strong>💡 مثال عملي شائع جداً:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>cat /etc/ssh/ssh_host_rsa_key</code>
+                    </div>
+                    <p style="color:#22543d;margin:10px 0;">❌ النتيجة: Permission denied</p>
+                    <p style="color:#22543d;margin-bottom:10px;">✅ <strong>الحل السريع:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>sudo !!</code>
+                    </div>
+                    <p style="color:#22543d;">🔹 هذا سيعيد تنفيذ آخر أمر ولكن بإضافة sudo تلقائياً!</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 9️⃣: أمر awk - استخراج الأعمدة والبيانات</h3>
+            </div>
+            
+            <div class="objective" style="margin-bottom:25px;">
+                <h2>📌 الهدف</h2>
+                <p>استخراج أعمدة معينة من بيانات نصية (مثل ملفات CSV أو نتائج الأوامر).</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>9.1 إنشاء ملف تجريبي</h4>
+                <div class="code-block">
+                    <code>touch awktest.txt
+nano awktest.txt</code>
+                </div>
+                <p style="margin:15px 0;">أضف المحتوى التالي داخل الملف:</p>
+                <div class="code-block">
+                    <code>line1,line2,line3,line4,line5,line6
+col1,col2,col3,col4,col5,col6</code>
+                </div>
+                <div class="note">
+                    <p><strong>💾 للحفظ:</strong> اضغط <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">Ctrl+O</code> ثم <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">Enter</code>، ثم للخروج <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">Ctrl+X</code></p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>9.2 عرض محتوى الملف</h4>
+                <div class="code-block">
+                    <code>cat awktest.txt</code>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>9.3 استخراج أعمدة محددة باستخدام awk</h4>
+                <div class="code-block">
+                    <code>cat awktest.txt | awk -F, '{print $1 "\t" $4}'</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة:</strong> سيعرض فقط العمود الأول والرابع مفصولين بعلامة Tab:</p>
+                    <p style="font-family: monospace; margin-top:8px; background:white; padding:10px; border-radius:4px;">line1    line4<br>col1     col4</p>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:10px;"><strong>📖 شرح المعاملات:</strong></p>
+                    <p style="margin-bottom:8px;"><strong>• $1</strong> = العمود الأول</p>
+                    <p style="margin-bottom:8px;"><strong>• $4</strong> = العمود الرابع</p>
+                    <p style="margin-bottom:8px;"><strong>• -F,</strong> = تحديد الفاصل بين الأعمدة (في هذه الحالة الفاصلة ",")</p>
+                    <p style="margin-bottom:8px;"><strong>• "\t"</strong> = إضافة مسافة Tab بين الأعمدة في النتيجة</p>
+                    <p><strong>• $0</strong> = السطر بالكامل (جميع الأعمدة)</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 🔟: أمر sed - تعديل واستبدال النصوص</h3>
+            </div>
+            
+            <div class="objective" style="margin-bottom:25px;">
+                <h2>📌 الهدف</h2>
+                <p>تعديل النصوص — خاصة استبدال كلمات داخل الملفات أو مخرجات الأوامر.</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>10.1 استبدال بسيط - أول ظهور فقط</h4>
+                <div class="code-block">
+                    <code>echo "it's daytime" | sed -e 's/day/night/'</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة:</strong></p>
+                    <p style="font-family: monospace; background:white; padding:10px; border-radius:4px; margin-top:8px;">it's nighttime</p>
+                    <p style="margin-top:10px;"><strong>⚠️ ملاحظة:</strong> استبدل أول ظهور فقط للكلمة.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>10.2 مثال يوضح الاستبدال الجزئي</h4>
+                <div class="code-block">
+                    <code>echo "day and day" | sed -e 's/day/night/'</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة:</strong></p>
+                    <p style="font-family: monospace; background:white; padding:10px; border-radius:4px; margin-top:8px;">night and day</p>
+                    <p style="margin-top:10px;"><strong>⚠️ لاحظ:</strong> استبدل أول "day" فقط وترك الثانية كما هي!</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>10.3 استبدال جميع التكرارات باستخدام g</h4>
+                <div class="code-block">
+                    <code>echo "day and day" | sed -e 's/day/night/g'</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة:</strong></p>
+                    <p style="font-family: monospace; background:white; padding:10px; border-radius:4px; margin-top:8px;">night and night</p>
+                    <p style="margin-top:10px;"><strong>✅ الخيار g:</strong> يعني "global" أي استبدل جميع التكرارات في السطر.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>10.4 مثال عملي على ملف حقيقي</h4>
+                <p style="margin-bottom:10px;">لنفترض أن لديك ملف <strong>names.txt</strong> يحتوي على:</p>
+                <div class="code-block">
+                    <code>mr. Jones
+mr. Smith
+Mr. Rogers
+mr. Mister</code>
+                </div>
+                
+                <p style="margin:15px 0;">لتوحيد الصيغة وتحويل جميع "mr." إلى "Mr.":</p>
+                <div class="code-block">
+                    <code>sed -e 's/mr./Mr./g' names.txt</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 النتيجة:</strong></p>
+                    <p style="font-family: monospace; background:white; padding:10px; border-radius:4px; margin-top:8px;">Mr. Jones<br>Mr. Smith<br>Mr. Rogers<br>Mr. Mister</p>
+                </div>
+                
+                <div class="note" style="margin-top:15px;">
+                    <p><strong>⚠️ مهم:</strong> هذا الأمر يعرض النتيجة على الشاشة فقط ولا يعدل الملف الأصلي. لحفظ التغييرات في الملف نفسه، استخدم الخيار <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">-i</code>:</p>
+                    <div class="code-block" style="margin-top:10px;">
+                        <code>sed -i -e 's/mr./Mr./g' names.txt</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 1️⃣1️⃣: SSH - الاتصال الآمن بالخوادم عن بُعد</h3>
+            </div>
+            
+            <div class="objective" style="margin-bottom:25px;">
+                <h2>📌 الهدف</h2>
+                <p>تعلم كيفية الاتصال بخادم Linux عن بُعد بشكل آمن، نقل الملفات، والتحقق من هوية الخادم.</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>11.1 الاتصال الأساسي بخادم عن بُعد</h4>
+                <div class="code-block">
+                    <code>ssh ed@192.168.7.88</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 ما سيحدث:</strong></p>
+                    <p style="margin:8px 0;">1. سيطلب منك إدخال كلمة المرور للمستخدم "ed"</p>
+                    <p style="margin:8px 0;">2. إذا كانت المرة الأولى، سيظهر تحذير بشأن بصمة الخادم</p>
+                </div>
+                
+                <div style="background:#fff5f5;border-right:4px solid #fc8181;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#742a2a;margin-bottom:10px;"><strong>⚠️ رسالة التحذير الأولى:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>The authenticity of host '192.168.7.88' can't be established.
+ECDSA key fingerprint is SHA256:xxxxxxxxxxxxxxxxxxx
+Are you sure you want to continue connecting (yes/no)?</code>
+                    </div>
+                    <p style="color:#742a2a;margin-top:10px;">اكتب: <strong>yes</strong> للمتابعة</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>11.2 التحقق من بصمة الخادم (Fingerprint Verification)</h4>
+                <p style="margin-bottom:10px;">للتأكد من أنك تتصل بالخادم الصحيح وليس بخادم مزيف (Man-in-the-Middle Attack):</p>
+                
+                <p style="margin:15px 0;"><strong>على الخادم نفسه:</strong></p>
+                <div class="code-block">
+                    <code>ssh-keygen -l -f /etc/ssh/ssh_host_ecdsa_key.pub</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 الشرح:</strong></p>
+                    <p style="margin:8px 0;"><strong>• -l:</strong> عرض البصمة (fingerprint)</p>
+                    <p style="margin:8px 0;"><strong>• -f:</strong> تحديد ملف المفتاح العام</p>
+                    <p style="margin:8px 0;"><strong>• ssh_host_ecdsa_key.pub:</strong> المفتاح العام للخادم</p>
+                </div>
+                
+                <div style="background:#f0fff4;border-right:4px solid #48bb78;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#22543d;"><strong>🔐 نصيحة أمنية:</strong> قارن البصمة التي تظهر لك عند الاتصال الأول مع البصمة الحقيقية من الخادم. إذا تطابقت، فالاتصال آمن!</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>11.3 نسخ ملف إلى الخادم باستخدام SCP</h4>
+                <div class="code-block">
+                    <code>scp myfile.txt ed@192.168.7.88:/home/ed/</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 تفصيل الأمر:</strong></p>
+                    <p style="margin:8px 0;"><strong>• scp:</strong> Secure Copy Protocol - بروتوكول نسخ آمن</p>
+                    <p style="margin:8px 0;"><strong>• myfile.txt:</strong> الملف المراد نسخه (من جهازك)</p>
+                    <p style="margin:8px 0;"><strong>• ed@192.168.7.88:</strong> اسم المستخدم وعنوان IP للخادم</p>
+                    <p style="margin:8px 0;"><strong>• :/home/ed/:</strong> المسار الوجهة على الخادم</p>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:10px;"><strong>📥 أمثلة إضافية مفيدة:</strong></p>
+                    
+                    <p style="margin:12px 0;"><strong>نسخ مجلد كامل:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>scp -r myfolder ed@192.168.7.88:/home/ed/</code>
+                    </div>
+                    
+                    <p style="margin:12px 0;"><strong>نسخ من الخادم إلى جهازك:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>scp ed@192.168.7.88:/home/ed/remotefile.txt .</code>
+                    </div>
+                    <p style="margin-top:8px;"><em>(النقطة "." تعني المجلد الحالي على جهازك)</em></p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>11.4 حذف مفتاح خادم قديم (عند تغيير الخادم)</h4>
+                <div class="code-block">
+                    <code>ssh-keygen -f "~/.ssh/known_hosts" -R 192.168.7.88</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 متى تحتاج هذا الأمر؟</strong></p>
+                    <p style="margin:8px 0;">عندما تحصل على رسالة خطأ مثل:</p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code style="color:#fc8181;">WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!</code>
+                    </div>
+                </div>
+                
+                <div style="background:#fffaf0;border-right:4px solid #ed8936;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#7c2d12;margin-bottom:10px;"><strong>⚠️ أسباب ظهور هذه الرسالة:</strong></p>
+                    <p style="color:#7c2d12;margin:8px 0;">1. تم إعادة تثبيت نظام التشغيل على الخادم</p>
+                    <p style="color:#7c2d12;margin:8px 0;">2. تغيّر عنوان IP للخادم وتم استخدامه من خادم آخر</p>
+                    <p style="color:#7c2d12;margin:8px 0;">3. محاولة هجوم Man-in-the-Middle (نادر جداً)</p>
+                    <p style="color:#7c2d12;margin-top:12px;"><strong>✅ الحل:</strong> إذا كنت متأكداً من سبب التغيير، استخدم الأمر أعلاه لحذف المفتاح القديم.</p>
+                </div>
+                
+                <div class="result-box" style="margin-top:15px;">
+                    <p><strong>🔹 تفصيل الأمر:</strong></p>
+                    <p style="margin:8px 0;"><strong>• -f "~/.ssh/known_hosts":</strong> ملف المفاتيح المعروفة</p>
+                    <p style="margin:8px 0;"><strong>• -R 192.168.7.88:</strong> حذف (Remove) المفتاح الخاص بهذا العنوان</p>
+                    <p style="margin:8px 0;"><strong>• ~/.ssh/known_hosts:</strong> الملف الذي يخزن بصمات جميع الخوادم التي اتصلت بها</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>11.5 نصائح إضافية للعمل مع SSH</h4>
+                <div style="background:#ebf8ff;border-right:4px solid #4299e1;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#2c5282;margin-bottom:10px;"><strong>💡 نصائح احترافية:</strong></p>
+                    
+                    <p style="color:#2c5282;margin:10px 0;"><strong>1. تحديد منفذ مخصص (إذا كان الخادم يستخدم منفذ غير 22):</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>ssh -p 2222 ed@192.168.7.88</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:10px 0;"><strong>2. تشغيل أمر واحد على الخادم دون الدخول للجلسة:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>ssh ed@192.168.7.88 "ls -la"</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:10px 0;"><strong>3. الخروج من جلسة SSH:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>exit</code>
+                    </div>
+                    <p style="color:#2c5282;margin-left:10px;"><em>أو اضغط: <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">Ctrl+D</code></em></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 1️⃣2️⃣: إدارة الخدمات - systemctl</h3>
+            </div>
+            
+            <div class="objective" style="margin-bottom:25px;">
+                <h2>📌 الهدف</h2>
+                <p>تعلم كيفية التحكم في الخدمات (Services) على نظام Linux: إيقاف، تشغيل، إعادة تشغيل، والتحقق من حالتها.</p>
+            </div>
+            
+            <div class="note">
+                <p><strong>💡 ما هي الخدمة (Service)؟</strong> هي برنامج يعمل في الخلفية (مثل خادم FTP، خادم الويب، قاعدة البيانات، إلخ). في هذا المثال سنستخدم خدمة <strong>vsftpd</strong> (خادم FTP).</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>12.1 التحقق من وجود الخدمة</h4>
+                <div class="code-block">
+                    <code>ps -ef | grep ftp</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 الشرح:</strong></p>
+                    <p style="margin:8px 0;"><strong>• ps -ef:</strong> عرض جميع العمليات الجارية</p>
+                    <p style="margin:8px 0;"><strong>• | grep ftp:</strong> تصفية النتائج لإظهار العمليات المتعلقة بـ FTP فقط</p>
+                    <p style="margin-top:12px;"><strong>🔹 النتيجة:</strong> إذا كانت الخدمة تعمل، ستظهر في القائمة. إذا لم تظهر شيء، معناها الخدمة متوقفة.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>12.2 إيقاف الخدمة</h4>
+                <div class="code-block">
+                    <code>sudo systemctl stop vsftpd</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 ما يحدث:</strong> الخدمة ستتوقف فوراً، ولن تكون متاحة حتى يتم تشغيلها مرة أخرى.</p>
+                    <p style="margin-top:8px;"><strong>🔹 متى تستخدمه:</strong> عند الحاجة لإيقاف الخدمة مؤقتاً (مثلاً لأغراض الصيانة أو الأمان).</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>12.3 إعادة تشغيل الخدمة</h4>
+                <div class="code-block">
+                    <code>sudo systemctl restart vsftpd</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 ما يحدث:</strong> يتم إيقاف الخدمة تماماً ثم إعادة تشغيلها من جديد.</p>
+                    <p style="margin-top:8px;"><strong>🔹 متى تستخدمه:</strong> بعد تعديل ملفات الإعدادات، أو عند حدوث مشكلة في الخدمة.</p>
+                </div>
+                
+                <div style="background:#fff5f5;border-right:4px solid #fc8181;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#742a2a;"><strong>⚠️ تحذير:</strong> عند استخدام <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">restart</code>، جميع الاتصالات الحالية سيتم قطعها! المستخدمون المتصلون حالياً سيتم فصلهم.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>12.4 إعادة تحميل الإعدادات فقط (بدون إيقاف)</h4>
+                <div class="code-block">
+                    <code>sudo systemctl reload vsftpd</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 ما يحدث:</strong> تقوم الخدمة بقراءة ملفات الإعدادات الجديدة دون إيقاف العمل.</p>
+                    <p style="margin-top:8px;"><strong>🔹 الفائدة:</strong> الخدمة تبقى تعمل والاتصالات الحالية لا تتأثر!</p>
+                </div>
+                
+                <div style="background:#f0fff4;border-right:4px solid #48bb78;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#22543d;margin-bottom:10px;"><strong>✅ الفرق بين restart و reload:</strong></p>
+                    <p style="color:#22543d;margin:8px 0;"><strong>• restart:</strong> إيقاف كامل ثم تشغيل جديد (قطع الاتصالات)</p>
+                    <p style="color:#22543d;margin:8px 0;"><strong>• reload:</strong> إعادة تحميل الإعدادات فقط (الاتصالات تبقى)</p>
+                    <p style="color:#22543d;margin-top:12px;"><strong>💡 نصيحة:</strong> استخدم reload عندما تريد تطبيق تغييرات بسيطة دون تعطيل الخدمة.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>12.5 التحقق من حالة الخدمة</h4>
+                <div class="code-block">
+                    <code>sudo systemctl status vsftpd</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 ما ستراه:</strong></p>
+                    <p style="font-family: monospace; background:white; padding:15px; border-radius:4px; margin:10px 0;">● vsftpd.service - Very Secure FTP Daemon<br>
+     Loaded: loaded (/lib/systemd/system/vsftpd.service; enabled)<br>
+     Active: <span style="color:#48bb78;">active (running)</span> since Fri 2025-10-24 10:30:15<br>
+     Main PID: 1234 (vsftpd)<br>
+     Status: "Running..."</p>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:10px;"><strong>📖 فهم المخرجات:</strong></p>
+                    <p style="margin:8px 0;"><strong>• Active: active (running):</strong> الخدمة تعمل بشكل صحيح ✅</p>
+                    <p style="margin:8px 0;"><strong>• Active: inactive (dead):</strong> الخدمة متوقفة ❌</p>
+                    <p style="margin:8px 0;"><strong>• Active: failed:</strong> الخدمة فشلت في التشغيل ⚠️</p>
+                    <p style="margin:8px 0;"><strong>• Loaded: enabled:</strong> ستبدأ تلقائياً عند إقلاع النظام</p>
+                    <p style="margin:8px 0;"><strong>• Loaded: disabled:</strong> لن تبدأ تلقائياً عند إقلاع النظام</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>12.6 أوامر إضافية مفيدة</h4>
+                <div style="background:#ebf8ff;border-right:4px solid #4299e1;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#2c5282;margin-bottom:15px;"><strong>🔧 أوامر systemctl الأساسية:</strong></p>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>تشغيل الخدمة:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo systemctl start vsftpd</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>تفعيل الخدمة للتشغيل التلقائي عند الإقلاع:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo systemctl enable vsftpd</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>تعطيل التشغيل التلقائي:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo systemctl disable vsftpd</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>عرض جميع الخدمات:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>systemctl list-units --type=service</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>عرض الخدمات التي فشلت:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>systemctl --failed</code>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>12.7 مثال عملي كامل</h4>
+                <div style="background:#fffaf0;border-right:4px solid #ed8936;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#7c2d12;margin-bottom:15px;"><strong>📝 سيناريو: تعديل إعدادات خادم FTP</strong></p>
+                    
+                    <p style="color:#7c2d12;margin:10px 0;"><strong>1. التحقق من الحالة الحالية:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo systemctl status vsftpd</code>
+                    </div>
+                    
+                    <p style="color:#7c2d12;margin:10px 0;"><strong>2. تعديل ملف الإعدادات:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo nano /etc/vsftpd.conf</code>
+                    </div>
+                    
+                    <p style="color:#7c2d12;margin:10px 0;"><strong>3. إعادة تحميل الإعدادات (الطريقة المفضلة):</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo systemctl reload vsftpd</code>
+                    </div>
+                    
+                    <p style="color:#7c2d12;margin:10px 0;"><strong>4. التحقق من نجاح العملية:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo systemctl status vsftpd</code>
+                    </div>
+                    
+                    <p style="color:#7c2d12;margin:10px 0;"><strong>5. التأكد من عمل الخدمة:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>ps -ef | grep ftp</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 1️⃣3️⃣: مراقبة الشبكة والمنافذ - netstat & lsof</h3>
+            </div>
+            
+            <div class="objective" style="margin-bottom:25px;">
+                <h2>📌 الهدف</h2>
+                <p>تعلم كيفية مراقبة الاتصالات الشبكية، معرفة المنافذ المفتوحة، والتحقق من الخدمات المستمعة على النظام.</p>
+            </div>
+            
+            <div class="note">
+                <p><strong>🔐 أهمية أمنية:</strong> هذه الأوامر ضرورية لمتخصصي الأمن السيبراني للكشف عن الاتصالات غير المصرح بها أو البرامج الضارة التي قد تفتح منافذ خلفية (Backdoors).</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>13.1 عرض جميع الخدمات المستمعة (Listening Services)</h4>
+                <div class="code-block">
+                    <code>sudo netstat -lt</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 ما يعرضه الأمر:</strong> جميع المنافذ التي تستمع لاتصالات واردة باستخدام بروتوكول TCP.</p>
+                    <p style="margin-top:12px;"><strong>🔹 شرح المعاملات:</strong></p>
+                    <p style="margin:8px 0;"><strong>• -l:</strong> عرض المنافذ المستمعة (Listening) فقط</p>
+                    <p style="margin:8px 0;"><strong>• -t:</strong> عرض اتصالات TCP فقط</p>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:12px;"><strong>📖 أمثلة على نتائج الأمر:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN
+tcp6       0      0 :::21                   :::*                    LISTEN</code>
+                    </div>
+                    <p style="margin-top:12px;"><strong>التفسير:</strong></p>
+                    <p style="margin:8px 0;">• المنفذ 22 (SSH) يستمع على جميع الواجهات</p>
+                    <p style="margin:8px 0;">• المنفذ 80 (HTTP) يستمع على جميع الواجهات</p>
+                    <p style="margin:8px 0;">• المنفذ 21 (FTP) يستمع على IPv6</p>
+                </div>
+                
+                <div style="background:#f0fff4;border-right:4px solid #48bb78;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#22543d;margin-bottom:10px;"><strong>💡 أوامر netstat مفيدة أخرى:</strong></p>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>عرض جميع الاتصالات (TCP وUDP):</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo netstat -tulnp</code>
+                    </div>
+                    <p style="color:#22543d;margin:8px 0;"><em>• -u: UDP، -n: عرض أرقام المنافذ، -p: عرض اسم البرنامج</em></p>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>عرض الاتصالات النشطة فقط:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo netstat -ant</code>
+                    </div>
+                    <p style="color:#22543d;margin:8px 0;"><em>• -a: جميع الاتصالات، -n: أرقام فقط</em></p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>13.2 عرض الخدمات على منفذ محدد (مثال: SSH - المنفذ 22)</h4>
+                <div class="code-block">
+                    <code>sudo lsof -i tcp:22</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 الغرض:</strong> معرفة البرنامج/العملية التي تستخدم المنفذ 22 وجميع الاتصالات النشطة عليه.</p>
+                    <p style="margin-top:12px;"><strong>🔹 شرح المعاملات:</strong></p>
+                    <p style="margin:8px 0;"><strong>• lsof:</strong> List Open Files - عرض الملفات المفتوحة (والمنافذ تعتبر ملفات في Linux!)</p>
+                    <p style="margin:8px 0;"><strong>• -i tcp:22:</strong> تصفية النتائج للمنفذ 22 باستخدام TCP</p>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:12px;"><strong>📖 مثال على النتيجة:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>COMMAND  PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+sshd     1234 root   3u  IPv4  12345      0t0  TCP *:ssh (LISTEN)
+sshd     5678 ed     4u  IPv4  56789      0t0  TCP 192.168.1.10:ssh->192.168.1.50:54321 (ESTABLISHED)</code>
+                    </div>
+                    <p style="margin-top:12px;"><strong>التفسير:</strong></p>
+                    <p style="margin:8px 0;">• العملية الأولى: خادم SSH الرئيسي في وضع الاستماع</p>
+                    <p style="margin:8px 0;">• العملية الثانية: اتصال SSH نشط من المستخدم "ed"</p>
+                </div>
+                
+                <div style="background:#ebf8ff;border-right:4px solid #4299e1;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#2c5282;margin-bottom:10px;"><strong>🔍 أمثلة أخرى لـ lsof:</strong></p>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>عرض جميع اتصالات الإنترنت:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo lsof -i</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>عرض الاتصالات على منفذ معين (مثل 80):</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo lsof -i :80</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>عرض جميع المنافذ المفتوحة بواسطة عملية معينة:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo lsof -i -p 1234</code>
+                    </div>
+                    <p style="color:#2c5282;margin:8px 0;"><em>(حيث 1234 هو PID - معرف العملية)</em></p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>13.3 التحقق من اتصالات صادرة لعنوان IP محدد</h4>
+                <div class="code-block">
+                    <code>sudo lsof -i @91.240.14.58</code>
+                </div>
+                <div class="result-box">
+                    <p><strong>🔹 الغرض:</strong> معرفة أي برنامج على نظامك يتصل بعنوان IP معين.</p>
+                    <p style="margin-top:12px;"><strong>🔹 الاستخدام الأمني:</strong></p>
+                    <p style="margin:8px 0;">• اكتشاف البرامج الضارة التي تتصل بخوادم تحكم (C&C Servers)</p>
+                    <p style="margin:8px 0;">• مراقبة الاتصالات المشبوهة</p>
+                    <p style="margin:8px 0;">• تتبع تسريبات البيانات المحتملة</p>
+                </div>
+                
+                <div style="background:#fff5f5;border-right:4px solid #fc8181;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#742a2a;margin-bottom:10px;"><strong>⚠️ سيناريو أمني:</strong></p>
+                    <p style="color:#742a2a;margin:8px 0;">إذا اشتبهت أن جهازك مخترق ويتصل بـ IP مشبوه، استخدم هذا الأمر لمعرفة:</p>
+                    <p style="color:#742a2a;margin:8px 0;">1. ما هو البرنامج الذي يقوم بالاتصال؟</p>
+                    <p style="color:#742a2a;margin:8px 0;">2. ما هو PID العملية؟</p>
+                    <p style="color:#742a2a;margin:8px 0;">3. من هو المستخدم الذي يشغل العملية؟</p>
+                    <p style="color:#742a2a;margin-top:12px;"><strong>ثم يمكنك:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>sudo kill -9 [PID]  <span class="comment"># لإيقاف العملية فوراً</span></code>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>13.4 الأدوات الحديثة - استخدام ss بدلاً من netstat</h4>
+                <div style="background:#fffaf0;border-right:4px solid #ed8936;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#7c2d12;margin-bottom:10px;"><strong>⚙️ ملاحظة مهمة:</strong></p>
+                    <p style="color:#7c2d12;margin:8px 0;">الأوامر <strong>netstat</strong> و <strong>lsof</strong> ما زالت مفيدة وشائعة، لكن في الأنظمة الحديثة يُفضل أحياناً استخدام أدوات أحدث وأسرع.</p>
+                </div>
+                
+                <p style="margin:15px 0;"><strong>الأمر الحديث: ss (Socket Statistics)</strong></p>
+                <div class="code-block">
+                    <code>ss -tulnp</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 لماذا ss أفضل؟</strong></p>
+                    <p style="margin:8px 0;">• أسرع بكثير من netstat</p>
+                    <p style="margin:8px 0;">• يعرض معلومات أكثر تفصيلاً</p>
+                    <p style="margin:8px 0;">• مدمج في معظم التوزيعات الحديثة</p>
+                    <p style="margin:8px 0;">• الصيغة نفسها (تقريباً) كـ netstat</p>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:12px;"><strong>📊 مقارنة سريعة:</strong></p>
+                    <table style="width:100%;border-collapse:collapse;margin-top:10px;">
+                        <tr style="background:#cbd5e0;">
+                            <th style="padding:10px;text-align:right;border:1px solid #a0aec0;">الهدف</th>
+                            <th style="padding:10px;text-align:left;border:1px solid #a0aec0;">netstat (قديم)</th>
+                            <th style="padding:10px;text-align:left;border:1px solid #a0aec0;">ss (حديث)</th>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px;text-align:right;border:1px solid #e2e8f0;">جميع الاتصالات</td>
+                            <td style="padding:10px;text-align:left;border:1px solid #e2e8f0;font-family:monospace;">netstat -tulnp</td>
+                            <td style="padding:10px;text-align:left;border:1px solid #e2e8f0;font-family:monospace;">ss -tulnp</td>
+                        </tr>
+                        <tr style="background:#f7fafc;">
+                            <td style="padding:10px;text-align:right;border:1px solid #e2e8f0;">الاتصالات المستمعة</td>
+                            <td style="padding:10px;text-align:left;border:1px solid #e2e8f0;font-family:monospace;">netstat -lt</td>
+                            <td style="padding:10px;text-align:left;border:1px solid #e2e8f0;font-family:monospace;">ss -lt</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px;text-align:right;border:1px solid #e2e8f0;">اتصالات TCP فقط</td>
+                            <td style="padding:10px;text-align:left;border:1px solid #e2e8f0;font-family:monospace;">netstat -t</td>
+                            <td style="padding:10px;text-align:left;border:1px solid #e2e8f0;font-family:monospace;">ss -t</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div style="background:#f0fff4;border-right:4px solid #48bb78;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#22543d;margin-bottom:10px;"><strong>✅ أمثلة عملية لـ ss:</strong></p>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>1. عرض جميع الاتصالات النشطة:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>ss -tunapl</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>2. عرض اتصالات منفذ معين (مثال: 443 - HTTPS):</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>ss -tn sport = :443</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>3. عرض إحصائيات مفصلة:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>ss -s</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>4. مراقبة الاتصالات بشكل مستمر:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>watch -n 1 'ss -tunapl'</code>
+                    </div>
+                    <p style="color:#22543d;margin:8px 0;"><em>(يحدث كل ثانية)</em></p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>13.5 ملخص عملي للمراقبة الأمنية</h4>
+                <div style="background:#ebf8ff;border-right:4px solid #4299e1;padding:20px;border-radius:4px;">
+                    <p style="color:#2c5282;margin-bottom:15px;"><strong>🔐 روتين مراقبة يومي للأمن السيبراني:</strong></p>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>الخطوة 1: التحقق من المنافذ المفتوحة</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo ss -tulnp</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>الخطوة 2: مراجعة الاتصالات النشطة</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo lsof -i</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>الخطوة 3: البحث عن اتصالات مشبوهة</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo ss -tunapl | grep ESTAB</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>الخطوة 4: فحص منفذ SSH بشكل خاص</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo lsof -i tcp:22</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin-top:15px;"><strong>⚠️ علامات تحذيرية:</strong></p>
+                    <p style="color:#2c5282;margin:8px 0;">• منافذ غريبة مفتوحة غير متوقعة</p>
+                    <p style="color:#2c5282;margin:8px 0;">• اتصالات لعناوين IP مجهولة</p>
+                    <p style="color:#2c5282;margin:8px 0;">• عمليات غير معروفة تستخدم الشبكة</p>
+                    <p style="color:#2c5282;margin:8px 0;">• اتصالات صادرة لدول أو شبكات مشبوهة</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 1️⃣4️⃣: أدوات استكشاف DNS والشبكات - nslookup & whois</h3>
+            </div>
+            
+            <div class="objective" style="margin-bottom:25px;">
+                <h2>📌 الهدف</h2>
+                <p>تعلم كيفية استخدام أدوات DNS للكشف عن معلومات النطاقات وعناوين IP، وجمع معلومات استخباراتية عن الأهداف المشبوهة.</p>
+            </div>
+            
+            <div class="note">
+                <p><strong>🔐 أهمية أمنية:</strong> هذه الأدوات ضرورية في مراحل الاستطلاع (Reconnaissance) والتحقيق الجنائي الرقمي (Digital Forensics) لتتبع مصادر الهجمات وتحليل البنية التحتية للشبكات.</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>14.1 nslookup - البحث عن عناوين IP للنطاقات</h4>
+                
+                <p style="margin:15px 0;"><strong>الاستخدام الأساسي:</strong></p>
+                <div class="code-block">
+                    <code>nslookup domain.com</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 ما يعرضه الأمر:</strong></p>
+                    <p style="margin:8px 0;">• عنوان الـ IP المرتبط بالنطاق</p>
+                    <p style="margin:8px 0;">• خادم DNS المستخدم في الاستعلام</p>
+                    <p style="margin:8px 0;">• معلومات إضافية عن الاستجابة</p>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:12px;"><strong>📖 مثال عملي:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>nslookup google.com</code>
+                    </div>
+                    <p style="margin:12px 0;"><strong>النتيجة المتوقعة:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>Server:         192.168.1.1
+Address:        192.168.1.1#53
+
+Non-authoritative answer:
+Name:   google.com
+Address: 142.250.185.46</code>
+                    </div>
+                </div>
+                
+                <div style="background:#fffaf0;border-right:4px solid #ed8936;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#7c2d12;margin-bottom:10px;"><strong>📖 فهم "Non-authoritative answer":</strong></p>
+                    <p style="color:#7c2d12;margin:8px 0;">هذا يعني أن الرد جاء من:</p>
+                    <p style="color:#7c2d12;margin:8px 0;">• خادم DNS ليس تابعاً مباشرة للنطاق المطلوب</p>
+                    <p style="color:#7c2d12;margin:8px 0;">• مصدر وسيط (مثل DNS Cache المحلي)</p>
+                    <p style="color:#7c2d12;margin:8px 0;">• خادم DNS الخاص بمزود الإنترنت</p>
+                    <p style="color:#7c2d12;margin-top:12px;"><strong>✅ هذا طبيعي تماماً:</strong> معظم الاستعلامات اليومية تكون Non-authoritative لتسريع الأداء.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>14.2 تحديد خادم DNS محدد يدوياً</h4>
+                <div class="code-block">
+                    <code>nslookup cisco.com 8.8.8.8</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 ما يحدث:</strong> يطلب من خادم Google DNS (8.8.8.8) حل الاسم بدلاً من الإعداد المحلي.</p>
+                    <p style="margin-top:12px;"><strong>🔹 متى تستخدمه؟</strong></p>
+                    <p style="margin:8px 0;">• عند الشك في تلاعب DNS المحلي (DNS Poisoning)</p>
+                    <p style="margin:8px 0;">• للمقارنة بين نتائج خوادم DNS مختلفة</p>
+                    <p style="margin:8px 0;">• للتأكد من صحة الاستجابة من مصدر موثوق</p>
+                </div>
+                
+                <div style="background:#f0fff4;border-right:4px solid #48bb78;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#22543d;margin-bottom:10px;"><strong>🌐 خوادم DNS العامة المشهورة:</strong></p>
+                    <p style="color:#22543d;margin:10px 0;"><strong>• Google DNS:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>8.8.8.8 و 8.8.4.4</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:10px 0;"><strong>• Cloudflare DNS:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>1.1.1.1 و 1.0.0.1</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:10px 0;"><strong>• Quad9 (محسّن للأمان):</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>9.9.9.9</code>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>14.3 البحث العكسي - Reverse DNS Lookup</h4>
+                <div class="code-block">
+                    <code>nslookup 72.163.4.161</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 الغرض:</strong> معرفة اسم النطاق المقابل لعنوان IP معين.</p>
+                    <p style="margin-top:12px;"><strong>🔹 الاستخدامات الأمنية:</strong></p>
+                    <p style="margin:8px 0;">• التحقق من هوية عنوان IP مشبوه في السجلات (Logs)</p>
+                    <p style="margin:8px 0;">• معرفة ما إذا كان IP تابع لمزود خدمة شرعي</p>
+                    <p style="margin:8px 0;">• كشف خوادم C&C (Command and Control) في البرمجيات الخبيثة</p>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:12px;"><strong>📖 مثال عملي:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>nslookup 8.8.8.8</code>
+                    </div>
+                    <p style="margin:12px 0;"><strong>النتيجة المتوقعة:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>Server:         192.168.1.1
+Address:        192.168.1.1#53
+
+Non-authoritative answer:
+8.8.8.8.in-addr.arpa    name = dns.google.</code>
+                    </div>
+                    <p style="margin-top:10px;"><strong>✅ النتيجة:</strong> تم التأكد أن هذا IP تابع لـ Google DNS.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>14.4 أهمية nslookup في الأمن السيبراني</h4>
+                <div style="background:#fff5f5;border-right:4px solid #fc8181;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#742a2a;margin-bottom:15px;"><strong>🔐 حالات استخدام أمنية:</strong></p>
+                    
+                    <p style="color:#742a2a;margin:12px 0;"><strong>1. التحقق من الاتصالات المشبوهة:</strong></p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">إذا وجدت في السجلات اتصال بـ IP غريب، استخدم nslookup لمعرفة هويته.</p>
+                    
+                    <p style="color:#742a2a;margin:12px 0;"><strong>2. كشف DNS Spoofing:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>nslookup bank.com         <span class="comment"># باستخدام DNS المحلي</span>
+nslookup bank.com 8.8.8.8  <span class="comment"># باستخدام Google DNS</span></code>
+                    </div>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">إذا كانت النتائج مختلفة، فقد يكون هناك تلاعب!</p>
+                    
+                    <p style="color:#742a2a;margin:12px 0;"><strong>3. تتبع مصادر الهجمات:</strong></p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">معرفة النطاقات المرتبطة بعناوين IP المهاجمة.</p>
+                    
+                    <p style="color:#742a2a;margin:12px 0;"><strong>4. فحص Phishing Sites:</strong></p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">التحقق من عنوان IP الحقيقي لموقع يبدو مشبوهاً.</p>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="subsection">
+                <h4>14.5 whois - جمع معلومات التسجيل</h4>
+                
+                <p style="margin:15px 0;"><strong>الاستخدام الأساسي:</strong></p>
+                <div class="code-block">
+                    <code>whois 72.163.4.161</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 المعلومات التي يعرضها:</strong></p>
+                    <p style="margin:8px 0;">• الجهة المالكة للعنوان أو النطاق</p>
+                    <p style="margin:8px 0;">• نطاق العناوين (NetRange)</p>
+                    <p style="margin:8px 0;">• اسم الشركة أو المؤسسة</p>
+                    <p style="margin:8px 0;">• تاريخ التسجيل والتحديث</p>
+                    <p style="margin:8px 0;">• معلومات الاتصال (إن كانت متاحة)</p>
+                    <p style="margin:8px 0;">• البلد والمنطقة الجغرافية</p>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:12px;"><strong>📖 مثال: البحث عن عنوان IP</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>whois 8.8.8.8</code>
+                    </div>
+                    <p style="margin:12px 0;"><strong>نتيجة مختصرة:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>NetRange:       8.0.0.0 - 8.255.255.255
+CIDR:           8.0.0.0/8
+NetName:        LVLT-ORG-8-8
+Organization:   Google LLC (GOGL)
+Country:        US
+RegDate:        1992-12-01
+Updated:        2014-03-14</code>
+                    </div>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:12px;"><strong>📖 مثال: البحث عن نطاق</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>whois example.com</code>
+                    </div>
+                    <p style="margin:12px 0;"><strong>معلومات نموذجية:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>Domain Name: EXAMPLE.COM
+Registry Domain ID: 2336799_DOMAIN_COM-VRSN
+Registrar: RESERVED-INTERNET ASSIGNED NUMBERS AUTHORITY
+Creation Date: 1995-08-14T04:00:00Z
+Registry Expiry Date: 2024-08-13T04:00:00Z
+Registrant Organization: Internet Assigned Numbers Authority
+Registrant Country: US</code>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>14.6 أهمية whois في التحقيقات الأمنية</h4>
+                <div style="background:#ebf8ff;border-right:4px solid #4299e1;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#2c5282;margin-bottom:15px;"><strong>🔍 حالات الاستخدام في الأمن السيبراني:</strong></p>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>1. تحديد مالك النطاق أو IP:</strong></p>
+                    <p style="color:#2c5282;margin:8px 0 8px 20px;">معرفة إن كان العنوان تابعاً لشركة شرعية أو مصدر مشبوه.</p>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>2. التحقق من عمر النطاق:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>whois suspicious-bank.com</code>
+                    </div>
+                    <p style="color:#2c5282;margin:8px 0 8px 20px;">⚠️ إذا كان النطاق مسجلاً حديثاً (مثلاً قبل أسبوع)، قد يكون موقع احتيال!</p>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>3. تتبع البنية التحتية للهجوم:</strong></p>
+                    <p style="color:#2c5282;margin:8px 0 8px 20px;">معرفة إذا كانت عدة نطاقات مشبوهة مسجلة من نفس الشخص/الجهة.</p>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>4. التحقق الجغرافي:</strong></p>
+                    <p style="color:#2c5282;margin:8px 0 8px 20px;">معرفة المنطقة الجغرافية للخادم - مفيد في تحديد مصدر الهجوم.</p>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>5. جمع معلومات استخباراتية (OSINT):</strong></p>
+                    <p style="color:#2c5282;margin:8px 0 8px 20px;">في مرحلة الاستطلاع للتعرف على البنية التحتية للهدف.</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>14.7 سيناريو عملي: التحقيق في نطاق مشبوه</h4>
+                <div style="background:#fffaf0;border-right:4px solid #ed8936;padding:20px;border-radius:4px;">
+                    <p style="color:#7c2d12;margin-bottom:15px;"><strong>🕵️ سيناريو: استلمت بريد تصيّد يزعم أنه من بنكك</strong></p>
+                    <p style="color:#7c2d12;margin:8px 0;">الرابط في البريد: <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">secure-mybank-login.com</code></p>
+                    
+                    <p style="color:#7c2d12;margin:15px 0 10px;"><strong>الخطوة 1: احصل على IP النطاق</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>nslookup secure-mybank-login.com</code>
+                    </div>
+                    
+                    <p style="color:#7c2d12;margin:15px 0 10px;"><strong>الخطوة 2: افحص معلومات IP</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>whois [IP_ADDRESS]</code>
+                    </div>
+                    
+                    <p style="color:#7c2d12;margin:15px 0 10px;"><strong>الخطوة 3: افحص معلومات النطاق</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>whois secure-mybank-login.com</code>
+                    </div>
+                    
+                    <p style="color:#7c2d12;margin:15px 0 10px;"><strong>🚩 علامات الخطر:</strong></p>
+                    <p style="color:#7c2d12;margin:8px 0;">✘ النطاق مسجل حديثاً (مثلاً قبل 3 أيام)</p>
+                    <p style="color:#7c2d12;margin:8px 0;">✘ معلومات التسجيل مخفية أو مزيفة</p>
+                    <p style="color:#7c2d12;margin:8px 0;">✘ الخادم في بلد مختلف عن بنكك</p>
+                    <p style="color:#7c2d12;margin:8px 0;">✘ المالك ليس البنك الحقيقي</p>
+                    
+                    <p style="color:#7c2d12;margin:15px 0 10px;"><strong>✅ الخلاصة: موقع تصيّد! لا تدخل معلوماتك!</strong></p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>14.8 نصائح إضافية وأدوات متقدمة</h4>
+                <div style="background:#f0fff4;border-right:4px solid #48bb78;padding:20px;border-radius:4px;">
+                    <p style="color:#22543d;margin-bottom:10px;"><strong>🔧 أوامر إضافية مفيدة:</strong></p>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>الحصول على جميع سجلات DNS:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>nslookup -type=any domain.com</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>الحصول على سجلات MX (خوادم البريد):</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>nslookup -type=mx domain.com</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>الحصول على سجلات NS (خوادم الأسماء):</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>nslookup -type=ns domain.com</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>أدوات بديلة أكثر تقدماً:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>dig domain.com           <span class="comment"># بديل متقدم لـ nslookup</span>
+host domain.com          <span class="comment"># أداة بسيطة للبحث السريع</span></code>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 1️⃣5️⃣: تحليل حزم الشبكة - tcpdump</h3>
+            </div>
+            
+            <div class="objective" style="margin-bottom:25px;">
+                <h2>📌 الهدف</h2>
+                <p>تعلم كيفية التقاط وتحليل حركة مرور الشبكة باستخدام tcpdump - أداة قوية لمراقبة الحزم وتشخيص المشاكل الأمنية.</p>
+            </div>
+            
+            <div class="note">
+                <p><strong>🔐 أهمية أمنية:</strong> tcpdump هي أداة أساسية في تحليل الشبكات والأمن السيبراني، تُستخدم لكشف الهجمات، تحليل البرمجيات الخبيثة، والتحقيق في الحوادث الأمنية.</p>
+            </div>
+            
+            <div style="background:#fff5f5;border-right:4px solid #fc8181;padding:20px;margin:20px 0;border-radius:4px;">
+                <p style="color:#742a2a;"><strong>⚠️ تحذير قانوني:</strong> استخدم tcpdump فقط على الشبكات التي تملك صلاحية مراقبتها. التقاط حركة مرور شبكات الآخرين بدون إذن قد يكون غير قانوني!</p>
+            </div>
+            
+            <div class="subsection">
+                <h4>15.1 التقاط حركة المرور بين جهازك ومضيف محدد</h4>
+                <div class="code-block">
+                    <code>sudo tcpdump -i ens33 -Xnns 0 host 192.168.222.1</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 شرح المعاملات:</strong></p>
+                    <p style="margin:8px 0;"><strong>• -i ens33:</strong> تحديد واجهة الشبكة (ens33 هو مثال، قد يكون eth0 أو wlan0 عندك)</p>
+                    <p style="margin:8px 0;"><strong>• -X:</strong> عرض محتوى الحزم بصيغة hex و ASCII</p>
+                    <p style="margin:8px 0;"><strong>• -nn:</strong> عدم تحويل الأرقام إلى أسماء (أسرع)</p>
+                    <p style="margin:8px 0;"><strong>• -s 0:</strong> التقاط الحزمة كاملة (بدون اقتطاع)</p>
+                    <p style="margin:8px 0;"><strong>• host 192.168.222.1:</strong> فلترة فقط الحزم من/إلى هذا العنوان</p>
+                </div>
+                
+                <div style="background:#f0fff4;border-right:4px solid #48bb78;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#22543d;margin-bottom:10px;"><strong>💡 كيف تعرف اسم واجهة الشبكة؟</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>ip addr show</code>
+                    </div>
+                    <p style="color:#22543d;margin:10px 0;"><em>أو الأمر القديم:</em></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>ifconfig</code>
+                    </div>
+                    <p style="color:#22543d;margin:10px 0;"><strong>الأسماء الشائعة:</strong></p>
+                    <p style="color:#22543d;margin:8px 0;">• <strong>eth0, eth1:</strong> وصلات سلكية</p>
+                    <p style="color:#22543d;margin:8px 0;">• <strong>wlan0, wlan1:</strong> وصلات لاسلكية</p>
+                    <p style="color:#22543d;margin:8px 0;">• <strong>ens33, enp0s3:</strong> أسماء حديثة للوصلات السلكية</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>15.2 تقييد الالتقاط لمنفذ محدد</h4>
+                <div class="code-block">
+                    <code>sudo tcpdump -i ens33 -Xnns 0 host 192.168.222.1 and port 21</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 الغرض:</strong> التقاط فقط حركة مرور FTP (المنفذ 21) من/إلى المضيف المحدد.</p>
+                    <p style="margin-top:12px;"><strong>🔹 لماذا هذا مفيد؟</strong></p>
+                    <p style="margin:8px 0;">• تقليل كمية البيانات الملتقطة</p>
+                    <p style="margin:8px 0;">• التركيز على بروتوكول معين للتحليل</p>
+                    <p style="margin:8px 0;">• تشخيص مشاكل خدمة محددة</p>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:12px;"><strong>🔍 أمثلة لمنافذ شائعة:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code><span class="comment"># التقاط حركة HTTP</span>
+sudo tcpdump -i ens33 -Xnns 0 port 80
+
+<span class="comment"># التقاط حركة HTTPS</span>
+sudo tcpdump -i ens33 -Xnns 0 port 443
+
+<span class="comment"># التقاط حركة DNS</span>
+sudo tcpdump -i ens33 -Xnns 0 port 53
+
+<span class="comment"># التقاط حركة SSH</span>
+sudo tcpdump -i ens33 -Xnns 0 port 22</code>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>15.3 استبعاد حركة معينة من التحليل</h4>
+                <div class="code-block">
+                    <code>sudo tcpdump -i ens33 -Xnns 0 host 192.168.222.1 and not port 22</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 الغرض:</strong> التقاط كل الحزم إلا حركة SSH (المنفذ 22).</p>
+                    <p style="margin-top:12px;"><strong>🔹 لماذا نستبعد SSH؟</strong></p>
+                    <p style="margin:8px 0;">• إذا كنت متصلاً عبر SSH، ستمتلئ الشاشة بحزم SSH الخاصة بجلستك!</p>
+                    <p style="margin:8px 0;">• يصعب رؤية حركة المرور الأخرى المهمة</p>
+                    <p style="margin:8px 0;">• تقليل الضوضاء في التحليل</p>
+                </div>
+                
+                <div style="background:#ebf8ff;border-right:4px solid #4299e1;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#2c5282;margin-bottom:10px;"><strong>🔧 أمثلة أخرى للفلترة:</strong></p>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>استبعاد عدة منافذ:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -i ens33 not port 22 and not port 53</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>التقاط من شبكة فرعية محددة:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -i ens33 net 192.168.1.0/24</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>التقاط فقط حزم TCP:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -i ens33 tcp</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>التقاط فقط حزم UDP:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -i ens33 udp</code>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>15.4 حفظ الالتقاط في ملف لتحليله لاحقاً</h4>
+                <div class="code-block">
+                    <code>sudo tcpdump -i ens33 -s 0 host 192.168.222.1 and port 21 -w capture.pcap</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 شرح المعاملات الجديدة:</strong></p>
+                    <p style="margin:8px 0;"><strong>• -w capture.pcap:</strong> كتابة البيانات إلى ملف بدلاً من عرضها على الشاشة</p>
+                    <p style="margin:8px 0;"><strong>• .pcap:</strong> صيغة قياسية لحفظ حزم الشبكة (Packet Capture)</p>
+                </div>
+                
+                <div style="background:#f0fff4;border-right:4px solid #48bb78;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#22543d;margin-bottom:10px;"><strong>✅ مزايا الحفظ في ملف:</strong></p>
+                    <p style="color:#22543d;margin:8px 0;">• يمكنك تحليل البيانات بهدوء لاحقاً</p>
+                    <p style="color:#22543d;margin:8px 0;">• تقليل استهلاك موارد النظام أثناء الالتقاط</p>
+                    <p style="color:#22543d;margin:8px 0;">• يمكن فتحه في Wireshark (أداة تحليل رسومية)</p>
+                    <p style="color:#22543d;margin:8px 0;">• الاحتفاظ بالأدلة للتحقيقات الجنائية</p>
+                    <p style="color:#22543d;margin:8px 0;">• مشاركة البيانات مع فريق الأمن</p>
+                </div>
+                
+                <div style="background:#fffaf0;border-right:4px solid #ed8936;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#7c2d12;margin-bottom:10px;"><strong>⚙️ نصائح احترافية:</strong></p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>1. تحديد حجم الملف الأقصى:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -i ens33 -s 0 -w capture.pcap -C 100</code>
+                    </div>
+                    <p style="color:#7c2d12;margin:8px 0;"><em>(ينشئ ملف جديد كل 100 ميجابايت)</em></p>
+                    
+                    <p style="color:#7c2d12;margin:12px 0;"><strong>2. تحديد عدد الحزم المراد التقاطها:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -i ens33 -s 0 -c 1000 -w capture.pcap</code>
+                    </div>
+                    <p style="color:#7c2d12;margin:8px 0;"><em>(يلتقط 1000 حزمة فقط ثم يتوقف)</em></p>
+                    
+                    <p style="color:#7c2d12;margin:12px 0;"><strong>3. إضافة طابع زمني للملف:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -i ens33 -s 0 -w capture_$(date +%Y%m%d_%H%M%S).pcap</code>
+                    </div>
+                    <p style="color:#7c2d12;margin:8px 0;"><em>(مثال: capture_20251025_143000.pcap)</em></p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>15.5 قراءة وتحليل الملف المحفوظ</h4>
+                <div class="code-block">
+                    <code>sudo tcpdump -Xnns 0 -r capture.pcap</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 المعامل الجديد:</strong></p>
+                    <p style="margin:8px 0;"><strong>• -r capture.pcap:</strong> قراءة من ملف بدلاً من التقاط مباشر</p>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:12px;"><strong>🔍 أمثلة لتحليل ملف محفوظ:</strong></p>
+                    
+                    <p style="margin:12px 0;"><strong>البحث عن حزم HTTP معينة:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -Xnns 0 -r capture.pcap 'tcp port 80'</code>
+                    </div>
+                    
+                    <p style="margin:12px 0;"><strong>استخراج كلمات مرور FTP (تعليمي فقط!):</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -Xnns 0 -r capture.pcap | grep -i 'PASS'</code>
+                    </div>
+                    
+                    <p style="margin:12px 0;"><strong>عرض فقط عناوين IP المصدر والوجهة:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -n -r capture.pcap | awk '{print $3, $5}'</code>
+                    </div>
+                    
+                    <p style="margin:12px 0;"><strong>عد عدد الحزم في الملف:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -r capture.pcap | wc -l</code>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>15.6 نصائح احترافية للأداء والأمان</h4>
+                <div style="background:#fff5f5;border-right:4px solid #fc8181;padding:20px;border-radius:4px;">
+                    <p style="color:#742a2a;margin-bottom:15px;"><strong>⚠️ نصائح مهمة جداً:</strong></p>
+                    
+                    <p style="color:#742a2a;margin:12px 0;"><strong>1. استخدم فلاتر محددة دائماً:</strong></p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">كلما كانت الفلاتر أقل تحديداً، زادت كمية البيانات وبالتالي زاد الضغط على النظام.</p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code><span style="color:#fc8181;">❌ سيء (يلتقط كل شيء):</span>
+sudo tcpdump -i ens33
+
+<span style="color:#48bb78;">✅ جيد (محدد وواضح):</span>
+sudo tcpdump -i ens33 host 192.168.1.10 and port 80</code>
+                    </div>
+                    
+                    <p style="color:#742a2a;margin:12px 0;"><strong>2. احفظ في ملف بدلاً من العرض المباشر:</strong></p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">العرض على الشاشة يستهلك موارد كثيرة بسبب عملية التنسيق.</p>
+                    
+                    <p style="color:#742a2a;margin:12px 0;"><strong>3. راقب الإحصائيات النهائية:</strong></p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">عند إيقاف tcpdump (Ctrl+C)، ستظهر إحصائيات:</p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>1234 packets captured
+1234 packets received by filter
+0 packets dropped by kernel</code>
+                    </div>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;"><strong>⚠️ إذا رأيت "packets dropped":</strong> النظام لا يستطيع مواكبة حركة المرور - استخدم فلاتر أكثر تحديداً!</p>
+                    
+                    <p style="color:#742a2a;margin:12px 0;"><strong>4. احذر من التقاط بيانات حساسة:</strong></p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">tcpdump يلتقط كل شيء بما في ذلك كلمات المرور غير المشفرة، الرموز، والبيانات الحساسة.</p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">احفظ الملفات في مكان آمن ومشفر!</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>15.7 سيناريو عملي: كشف هجوم FTP</h4>
+                <div style="background:#ebf8ff;border-right:4px solid #4299e1;padding:20px;border-radius:4px;">
+                    <p style="color:#2c5282;margin-bottom:15px;"><strong>🕵️ سيناريو: اشتباه في محاولة اختراق خادم FTP</strong></p>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>الخطوة 1: ابدأ الالتقاط على منفذ FTP</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -i ens33 -s 0 port 21 -w ftp_analysis.pcap</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>الخطوة 2: بعد فترة، أوقف الالتقاط (Ctrl+C)</strong></p>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>الخطوة 3: ابحث عن محاولات تسجيل دخول فاشلة</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -Xnns 0 -r ftp_analysis.pcap | grep -i "530 Login incorrect"</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>الخطوة 4: اعرض أسماء المستخدمين المستخدمة</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -Xnns 0 -r ftp_analysis.pcap | grep -i "USER"</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>الخطوة 5: اعرض كلمات المرور المحاولة</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -Xnns 0 -r ftp_analysis.pcap | grep -i "PASS"</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>الخطوة 6: حدد عناوين IP المهاجمة</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tcpdump -nn -r ftp_analysis.pcap | awk '{print $3}' | sort | uniq -c | sort -rn</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:15px 0 10px;"><strong>🚨 علامات هجوم Brute Force:</strong></p>
+                    <p style="color:#2c5282;margin:8px 0;">• عدد كبير من محاولات تسجيل الدخول الفاشلة</p>
+                    <p style="color:#2c5282;margin:8px 0;">• أسماء مستخدمين شائعة (admin, root, test)</p>
+                    <p style="color:#2c5282;margin:8px 0;">• محاولات من نفس عنوان IP بتسلسل سريع</p>
+                    <p style="color:#2c5282;margin:8px 0;">• كلمات مرور من قواميس معروفة</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>15.8 الانتقال إلى Wireshark</h4>
+                <div style="background:#f0fff4;border-right:4px solid #48bb78;padding:20px;border-radius:4px;">
+                    <p style="color:#22543d;margin-bottom:10px;"><strong>💡 نصيحة احترافية:</strong></p>
+                    <p style="color:#22543d;margin:8px 0;">tcpdump رائع للالتقاط السريع وتحليل سطر الأوامر، لكن للتحليل المعمق استخدم <strong>Wireshark</strong>!</p>
+                    
+                    <p style="color:#22543d;margin:15px 0 10px;"><strong>لفتح ملف PCAP في Wireshark:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>wireshark capture.pcap &</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:10px 0;"><strong>أو إذا لم يكن مثبتاً:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo apt install wireshark     <span class="comment"># على Ubuntu/Debian</span>
+sudo yum install wireshark     <span class="comment"># على CentOS/RHEL</span></code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:15px 0 10px;"><strong>✨ مزايا Wireshark:</strong></p>
+                    <p style="color:#22543d;margin:8px 0;">• واجهة رسومية سهلة الاستخدام</p>
+                    <p style="color:#22543d;margin:8px 0;">• تلوين الحزم حسب البروتوكول</p>
+                    <p style="color:#22543d;margin:8px 0;">• فلاتر متقدمة جداً</p>
+                    <p style="color:#22543d;margin:8px 0;">• إعادة بناء جلسات TCP</p>
+                    <p style="color:#22543d;margin:8px 0;">• تحليل إحصائي شامل</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>الخطوة 1️⃣6️⃣: إدارة السجلات - Syslog & Logger</h3>
+            </div>
+            
+            <div class="objective" style="margin-bottom:25px;">
+                <h2>📌 الهدف</h2>
+                <p>تعلم كيفية إدارة سجلات النظام (System Logs)، اختبار إعدادات syslog، وإرسال السجلات إلى خوادم بعيدة.</p>
+            </div>
+            
+            <div class="note">
+                <p><strong>🔐 أهمية أمنية:</strong> السجلات هي العمود الفقري للأمن السيبراني! تُستخدم لكشف الهجمات، التحقيق في الحوادث، والامتثال للمعايير الأمنية. إدارة السجلات بشكل صحيح ضرورية لأي متخصص أمن.</p>
+            </div>
+            
+            <div style="background:#ebf8ff;border-right:4px solid #4299e1;padding:20px;margin:20px 0;border-radius:4px;">
+                <p style="color:#2c5282;margin-bottom:10px;"><strong>📖 ما هو Syslog؟</strong></p>
+                <p style="color:#2c5282;margin:8px 0;">• بروتوكول قياسي لإدارة وإرسال سجلات النظام</p>
+                <p style="color:#2c5282;margin:8px 0;">• يجمع سجلات من التطبيقات والخدمات والنواة</p>
+                <p style="color:#2c5282;margin:8px 0;">• يمكنه إرسال السجلات لخوادم بعيدة للأرشفة</p>
+                <p style="color:#2c5282;margin:8px 0;">• ملفات الإعدادات عادة في: <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">/etc/rsyslog.conf</code> أو <code style="background:#e2e8f0;padding:2px 6px;border-radius:3px;">/etc/syslog.conf</code></p>
+            </div>
+            
+            <div class="subsection">
+                <h4>16.1 فهم إعدادات Syslog</h4>
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:12px;"><strong>📋 مثال على إعداد syslog:</strong></p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>auth,authpriv.*   /var/log/auth.log</code>
+                    </div>
+                    
+                    <p style="margin:15px 0 10px;"><strong>شرح الإعداد:</strong></p>
+                    <p style="margin:8px 0;"><strong>• auth, authpriv:</strong> الفئات (Facilities) - سجلات المصادقة والصلاحيات</p>
+                    <p style="margin:8px 0;"><strong>• .* :</strong> المستوى (Priority) - جميع المستويات (* = الكل)</p>
+                    <p style="margin:8px 0;"><strong>• /var/log/auth.log:</strong> ملف الوجهة الذي ستُحفظ فيه السجلات</p>
+                </div>
+                
+                <div style="background:#fffaf0;border-right:4px solid #ed8936;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#7c2d12;margin-bottom:12px;"><strong>📊 فئات Syslog الشائعة (Facilities):</strong></p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• auth/authpriv:</strong> سجلات المصادقة والأمان</p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• kern:</strong> سجلات النواة (Kernel)</p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• mail:</strong> سجلات البريد الإلكتروني</p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• daemon:</strong> سجلات الخدمات والبرامج الخلفية</p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• user:</strong> سجلات المستخدمين العامة</p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• local0-local7:</strong> فئات مخصصة للتطبيقات</p>
+                    
+                    <p style="color:#7c2d12;margin:15px 0 10px;"><strong>🎚️ مستويات الأولوية (Priorities):</strong></p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• emerg (0):</strong> حالة طوارئ - النظام غير صالح</p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• alert (1):</strong> يجب اتخاذ إجراء فوراً</p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• crit (2):</strong> حالة حرجة</p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• err (3):</strong> خطأ</p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• warning (4):</strong> تحذير</p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• notice (5):</strong> ملاحظة عادية ولكن مهمة</p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• info (6):</strong> معلومات عامة</p>
+                    <p style="color:#7c2d12;margin:8px 0;"><strong>• debug (7):</strong> رسائل تصحيح الأخطاء</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>16.2 اختبار إعدادات Syslog المحلية</h4>
+                
+                <p style="margin:15px 0;"><strong>الخطوة 1: إرسال رسالة اختبار</strong></p>
+                <div class="code-block">
+                    <code>logger -p auth.info "My auth.info logging test"</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 شرح الأمر:</strong></p>
+                    <p style="margin:8px 0;"><strong>• logger:</strong> أداة لإرسال رسائل إلى syslog</p>
+                    <p style="margin:8px 0;"><strong>• -p auth.info:</strong> تحديد الفئة والمستوى</p>
+                    <p style="margin:8px 0;"><strong>• "My auth.info logging test":</strong> نص الرسالة</p>
+                </div>
+                
+                <p style="margin:15px 0;"><strong>الخطوة 2: التحقق من وجود السجل</strong></p>
+                <div class="code-block">
+                    <code>sudo tail -f /var/log/auth.log</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 ما سيظهر:</strong></p>
+                    <div class="code-block" style="margin:10px 0;background:white;color:#2d3748;">
+                        <code>Oct 25 14:30:15 hostname username: My auth.info logging test</code>
+                    </div>
+                    <p style="margin-top:10px;"><strong>✅ إذا ظهرت الرسالة:</strong> إعدادات syslog تعمل بشكل صحيح!</p>
+                </div>
+                
+                <div style="background:#f0fff4;border-right:4px solid #48bb78;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#22543d;margin-bottom:10px;"><strong>💡 أمثلة إضافية للاختبار:</strong></p>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>اختبار مستوى تحذير:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>logger -p auth.warning "Test warning message"</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>اختبار مستوى خطأ:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>logger -p auth.err "Test error message"</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>اختبار فئة مختلفة (daemon):</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>logger -p daemon.info "Test daemon message"</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>عرض آخر 20 سطر من السجل:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tail -20 /var/log/auth.log</code>
+                    </div>
+                    
+                    <p style="color:#22543d;margin:12px 0;"><strong>البحث عن كلمة معينة في السجل:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo grep "test" /var/log/auth.log</code>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>16.3 إرسال السجلات إلى خادم Syslog بعيد</h4>
+                
+                <div class="note">
+                    <p><strong>🔐 لماذا الإرسال لخادم بعيد؟</strong></p>
+                    <p style="margin:8px 0;">• حماية السجلات من المهاجمين (لا يمكنهم حذفها من الخادم المخترق)</p>
+                    <p style="margin:8px 0;">• المركزية - جمع سجلات عدة خوادم في مكان واحد</p>
+                    <p style="margin:8px 0;">• الأرشفة والنسخ الاحتياطي</p>
+                    <p style="margin:8px 0;">• التحليل المتقدم والارتباط بين الأحداث</p>
+                </div>
+                
+                <p style="margin:15px 0;"><strong>الأمر الكامل:</strong></p>
+                <div class="code-block">
+                    <code>logger -p auth.info -n 192.168.222.1 -P 10514 --UDP "My auth.info logging test"</code>
+                </div>
+                
+                <div class="result-box">
+                    <p><strong>🔹 شرح المعاملات الجديدة:</strong></p>
+                    <p style="margin:8px 0;"><strong>• -n 192.168.222.1:</strong> عنوان IP للخادم البعيد</p>
+                    <p style="margin:8px 0;"><strong>• -P 10514:</strong> المنفذ المستخدم (10514 في هذا المثال)</p>
+                    <p style="margin:8px 0;"><strong>• --UDP:</strong> استخدام بروتوكول UDP (أو --TCP للـ TCP)</p>
+                </div>
+                
+                <div style="background:#edf2f7;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="margin-bottom:12px;"><strong>🔌 الإعدادات الافتراضية:</strong></p>
+                    <p style="margin:8px 0;">إذا لم تحدد البروتوكول أو المنفذ:</p>
+                    <div class="code-block" style="margin:10px 0;">
+                        <code>logger -p auth.info -n 192.168.222.1 "Test message"</code>
+                    </div>
+                    <p style="margin-top:10px;"><strong>سيستخدم:</strong></p>
+                    <p style="margin:8px 0;">• البروتوكول: <strong>UDP</strong> (الافتراضي)</p>
+                    <p style="margin:8px 0;">• المنفذ: <strong>514</strong> (المنفذ القياسي لـ syslog)</p>
+                </div>
+                
+                <div style="background:#fff5f5;border-right:4px solid #fc8181;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#742a2a;margin-bottom:12px;"><strong>⚖️ UDP vs TCP للسجلات:</strong></p>
+                    
+                    <p style="color:#742a2a;margin:12px 0;"><strong>UDP (الافتراضي):</strong></p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">✅ أسرع وأقل استهلاكاً للموارد</p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">✅ لا يسبب توقف التطبيقات إذا فشل الإرسال</p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">❌ قد تُفقد بعض الرسائل في الشبكات المزدحمة</p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">❌ لا يضمن التسليم</p>
+                    
+                    <p style="color:#742a2a;margin:12px 0;"><strong>TCP:</strong></p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">✅ يضمن وصول الرسائل</p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">✅ مناسب للسجلات الحرجة</p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">❌ أبطأ قليلاً</p>
+                    <p style="color:#742a2a;margin:8px 0 8px 20px;">❌ قد يوقف التطبيق إذا لم يستجب الخادم</p>
+                </div>
+                
+                <div style="background:#ebf8ff;border-right:4px solid #4299e1;padding:20px;margin:20px 0;border-radius:4px;">
+                    <p style="color:#2c5282;margin-bottom:10px;"><strong>🔧 أمثلة متنوعة:</strong></p>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>1. إرسال عبر TCP:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>logger -p auth.info -n 192.168.222.1 -P 10514 --TCP "TCP test message"</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>2. إرسال للمنفذ القياسي 514:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>logger -p auth.info -n 192.168.222.1 "Standard port message"</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>3. إرسال رسالة حرجة:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>logger -p auth.crit -n 192.168.222.1 --TCP "Critical security alert"</code>
+                    </div>
+                    
+                    <p style="color:#2c5282;margin:12px 0;"><strong>4. إضافة وسم (Tag) للرسالة:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>logger -t "MyApp" -p auth.info -n 192.168.222.1 "Application event"</code>
+                    </div>
+                    <p style="color:#2c5282;margin:8px 0 8px 20px;"><em>(-t يضيف وسم يسهل الفلترة لاحقاً)</em></p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>16.4 سيناريو عملي: إعداد سجلات أمنية مركزية</h4>
+                <div style="background:#fffaf0;border-right:4px solid #ed8936;padding:20px;border-radius:4px;">
+                    <p style="color:#7c2d12;margin-bottom:15px;"><strong>🏢 سيناريو: لديك 3 خوادم وتريد جمع سجلاتها في خادم مركزي</strong></p>
+                    
+                    <p style="color:#7c2d12;margin:12px 0;"><strong>الخطوة 1: على الخادم المركزي (Log Server)</strong></p>
+                    <p style="color:#7c2d12;margin:8px 0 8px 20px;">تأكد من تشغيل rsyslog وفتح المنفذ:</p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo systemctl status rsyslog
+sudo netstat -tulnp | grep 514</code>
+                    </div>
+                    
+                    <p style="color:#7c2d12;margin:12px 0;"><strong>الخطوة 2: على كل خادم عميل</strong></p>
+                    <p style="color:#7c2d12;margin:8px 0 8px 20px;">أرسل سجلات المصادقة للخادم المركزي:</p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>logger -p auth.info -n 192.168.222.1 -P 514 "Server1: Login attempt detected"</code>
+                    </div>
+                    
+                    <p style="color:#7c2d12;margin:12px 0;"><strong>الخطوة 3: للإعداد الدائم</strong></p>
+                    <p style="color:#7c2d12;margin:8px 0 8px 20px;">عدّل ملف rsyslog.conf على كل خادم:</p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo nano /etc/rsyslog.conf</code>
+                    </div>
+                    <p style="color:#7c2d12;margin:8px 0 8px 20px;">أضف هذا السطر:</p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>auth,authpriv.*   @@192.168.222.1:514</code>
+                    </div>
+                    <p style="color:#7c2d12;margin:8px 0 8px 20px;"><em>(@ = UDP, @@ = TCP)</em></p>
+                    
+                    <p style="color:#7c2d12;margin:12px 0;"><strong>الخطوة 4: إعادة تشغيل الخدمة</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo systemctl restart rsyslog</code>
+                    </div>
+                    
+                    <p style="color:#7c2d12;margin:12px 0;"><strong>الخطوة 5: اختبار الإعداد</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>logger -p auth.info "Testing centralized logging"
+ssh localhost  <span class="comment"># محاولة تسجيل دخول</span></code>
+                    </div>
+                    
+                    <p style="color:#7c2d12;margin:12px 0;"><strong>الخطوة 6: التحقق على الخادم المركزي</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code>sudo tail -f /var/log/auth.log</code>
+                    </div>
+                    <p style="color:#7c2d12;margin:8px 0 8px 20px;">يجب أن ترى السجلات من جميع الخوادم!</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h4>16.5 ملفات السجلات المهمة في Linux</h4>
+                <div style="background:#f0fff4;border-right:4px solid #48bb78;padding:20px;border-radius:4px;">
+                    <p style="color:#22543d;margin-bottom:15px;"><strong>📁 ملفات السجلات الأساسية:</strong></p>
+                    
+                    <p style="color:#22543d;margin:10px 0;"><strong>/var/log/auth.log</strong> (Ubuntu/Debian) أو <strong>/var/log/secure</strong> (CentOS/RHEL)</p>
+                    <p style="color:#22543d;margin:5px 0 10px 20px;">• سجلات المصادقة (تسجيل الدخول، sudo، SSH)</p>
+                    
+                    <p style="color:#22543d;margin:10px 0;"><strong>/var/log/syslog</strong> أو <strong>/var/log/messages</strong></p>
+                    <p style="color:#22543d;margin:5px 0 10px 20px;">• السجلات العامة للنظام</p>
+                    
+                    <p style="color:#22543d;margin:10px 0;"><strong>/var/log/kern.log</strong></p>
+                    <p style="color:#22543d;margin:5px 0 10px 20px;">• سجلات نواة Linux</p>
+                    
+                    <p style="color:#22543d;margin:10px 0;"><strong>/var/log/apache2/</strong> أو <strong>/var/log/httpd/</strong></p>
+                    <p style="color:#22543d;margin:5px 0 10px 20px;">• سجلات خادم الويب Apache</p>
+                    
+                    <p style="color:#22543d;margin:10px 0;"><strong>/var/log/nginx/</strong></p>
+                    <p style="color:#22543d;margin:5px 0 10px 20px;">• سجلات خادم الويب Nginx</p>
+                    
+                    <p style="color:#22543d;margin:10px 0;"><strong>/var/log/mysql/</strong></p>
+                    <p style="color:#22543d;margin:5px 0 10px 20px;">• سجلات قاعدة بيانات MySQL</p>
+                    
+                    <p style="color:#22543d;margin:10px 0;"><strong>/var/log/fail2ban.log</strong></p>
+                    <p style="color:#22543d;margin:5px 0 10px 20px;">• سجلات نظام منع التطفل Fail2Ban</p>
+                    
+                    <p style="color:#22543d;margin:15px 0 10px;"><strong>🔍 أوامر مفيدة لقراءة السجلات:</strong></p>
+                    <div class="code-block" style="margin:8px 0;">
+                        <code><span class="comment"># عرض آخر 50 سطر</span>
+sudo tail -50 /var/log/auth.log
+
+<span class="comment"># متابعة السجل مباشرة (real-time)</span>
+sudo tail -f /var/log/auth.log
+
+<span class="comment"># البحث عن كلمة في السجل</span>
+sudo grep "Failed password" /var/log/auth.log
+
+<span class="comment"># عد محاولات الفشل</span>
+sudo grep "Failed password" /var/log/auth.log | wc -l
+
+<span class="comment"># عرض محاولات تسجيل دخول فاشلة مع IP</span>
+sudo grep "Failed password" /var/log/auth.log | awk '{print $11}' | sort | uniq -c | sort -rn</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section">
+            <div class="section-title">
+                <h3>📚 ملخص المفاهيم الأساسية</h3>
+            </div>
+            
+            <div style="background:#f7fafc;padding:25px;border-radius:8px;margin-top:20px;">
+                <h4 style="color:#2d3748;margin-bottom:15px;font-size:1.1em;">🔄 توجيه الإدخال والإخراج:</h4>
+                <p style="margin-bottom:12px;"><strong>• STDIN (0):</strong> المدخل القياسي - البيانات التي تدخل إلى البرنامج</p>
+                <p style="margin-bottom:12px;"><strong>• STDOUT (1):</strong> المخرج القياسي - النتائج العادية للبرنامج</p>
+                <p style="margin-bottom:12px;"><strong>• STDERR (2):</strong> مخرج الأخطاء - رسائل الأخطاء والتحذيرات</p>
+                <p style="margin-bottom:12px;"><strong>• > :</strong> توجيه المخرج (يستبدل المحتوى)</p>
+                <p style="margin-bottom:12px;"><strong>• >> :</strong> إلحاق المخرج (يضيف إلى المحتوى الموجود)</p>
+                <p style="margin-bottom:20px;"><strong>• 2> :</strong> توجيه الأخطاء</p>
+                
+                <h4 style="color:#2d3748;margin-bottom:15px;font-size:1.1em;">⛓️ ربط الأوامر:</h4>
+                <p style="margin-bottom:12px;"><strong>• | (Pipe):</strong> تمرير مخرجات أمر كمدخل لأمر آخر</p>
+                <p style="margin-bottom:12px;"><strong>• && :</strong> تنفيذ الأمر التالي فقط عند نجاح الأمر السابق</p>
+                <p style="margin-bottom:20px;"><strong>• ; :</strong> تنفيذ الأوامر بالتتابع بغض النظر عن النجاح أو الفشل</p>
+                
+                <h4 style="color:#2d3748;margin-bottom:15px;font-size:1.1em;">🔧 أوامر متقدمة:</h4>
+                <p style="margin-bottom:12px;"><strong>• history:</strong> عرض سجل الأوامر السابقة</p>
+                <p style="margin-bottom:12px;"><strong>• !n:</strong> تنفيذ الأمر رقم n من السجل</p>
+                <p style="margin-bottom:12px;"><strong>• !!:</strong> تكرار آخر أمر (مفيد مع sudo)</p>
+                <p style="margin-bottom:12px;"><strong>• awk:</strong> استخراج ومعالجة الأعمدة من البيانات النصية</p>
+                <p style="margin-bottom:12px;"><strong>• sed:</strong> استبدال وتعديل النصوص</p>
+                <p style="margin-bottom:20px;"><strong>• sed -e 's/old/new/g':</strong> استبدال جميع التكرارات (g = global)</p>
+                
+                <h4 style="color:#2d3748;margin-bottom:15px;font-size:1.1em;">🔐 أوامر SSH والاتصال عن بُعد:</h4>
+                <p style="margin-bottom:12px;"><strong>• ssh user@host:</strong> الاتصال بخادم عن بُعد</p>
+                <p style="margin-bottom:12px;"><strong>• ssh-keygen -l -f file:</strong> عرض بصمة المفتاح العام</p>
+                <p style="margin-bottom:12px;"><strong>• scp file user@host:path:</strong> نسخ ملف إلى خادم بعيد</p>
+                <p style="margin-bottom:12px;"><strong>• scp -r folder user@host:path:</strong> نسخ مجلد كامل</p>
+                <p style="margin-bottom:12px;"><strong>• ssh-keygen -R host:</strong> حذف مفتاح خادم قديم</p>
+                <p style="margin-bottom:20px;"><strong>• ~/.ssh/known_hosts:</strong> ملف البصمات المحفوظة للخوادم</p>
+                
+                <h4 style="color:#2d3748;margin-bottom:15px;font-size:1.1em;">⚙️ إدارة الخدمات (systemctl):</h4>
+                <p style="margin-bottom:12px;"><strong>• systemctl status service:</strong> التحقق من حالة الخدمة</p>
+                <p style="margin-bottom:12px;"><strong>• systemctl start service:</strong> تشغيل الخدمة</p>
+                <p style="margin-bottom:12px;"><strong>• systemctl stop service:</strong> إيقاف الخدمة</p>
+                <p style="margin-bottom:12px;"><strong>• systemctl restart service:</strong> إعادة تشغيل الخدمة (قطع الاتصالات)</p>
+                <p style="margin-bottom:12px;"><strong>• systemctl reload service:</strong> إعادة تحميل الإعدادات فقط (بدون قطع)</p>
+                <p style="margin-bottom:12px;"><strong>• systemctl enable service:</strong> تفعيل التشغيل التلقائي عند الإقلاع</p>
+                <p style="margin-bottom:12px;"><strong>• systemctl disable service:</strong> تعطيل التشغيل التلقائي</p>
+                <p style="margin-bottom:12px;"><strong>• systemctl --failed:</strong> عرض الخدمات الفاشلة</p>
+                <p style="margin-bottom:20px;"><strong>• ps -ef | grep service:</strong> التحقق من عمل الخدمة</p>
+                
+                <h4 style="color:#2d3748;margin-bottom:15px;font-size:1.1em;">🌐 مراقبة الشبكة والمنافذ:</h4>
+                <p style="margin-bottom:12px;"><strong>• netstat -lt:</strong> عرض المنافذ المستمعة (TCP)</p>
+                <p style="margin-bottom:12px;"><strong>• netstat -tulnp:</strong> عرض جميع الاتصالات مع أسماء البرامج</p>
+                <p style="margin-bottom:12px;"><strong>• lsof -i tcp:PORT:</strong> عرض الخدمة على منفذ معين</p>
+                <p style="margin-bottom:12px;"><strong>• lsof -i @IP:</strong> التحقق من اتصالات لعنوان IP محدد</p>
+                <p style="margin-bottom:12px;"><strong>• lsof -i:</strong> عرض جميع اتصالات الإنترنت</p>
+                <p style="margin-bottom:12px;"><strong>• ss -tulnp:</strong> بديل حديث وأسرع لـ netstat</p>
+                <p style="margin-bottom:12px;"><strong>• ss -lt:</strong> عرض المنافذ المستمعة (حديث)</p>
+                <p style="margin-bottom:12px;"><strong>• ss -s:</strong> إحصائيات مفصلة عن الاتصالات</p>
+                <p><strong>• watch -n 1 'ss -tunapl':</strong> مراقبة مستمرة للاتصالات</p>
+            </div></h4></div>
+        </div>
+        
+        <div class="footer">
+            <p>🎓 <strong>Linux Command Shell Training</strong> | أمن المعلومات والشبكات</p>
+            <p style="margin-top:10px;">تم الإعداد بواسطة Claude | تاريخ: أكتوبر 2025</p>
+        </div>
+    </div>
+</body>
+</html>
