@@ -46,6 +46,9 @@
 
 **TCP (Transmission Control Protocol)**: يؤسس اتصالاً موثوقاً بين جهازين عبر عملية المصافحة الثلاثية (three-way handshake) قبل نقل البيانات. يتحقق من هوية الطرفين ويضمن تسلسل البيانات.
 
+</div>
+<div dir="rtl">
+
 **ARP (Address Resolution Protocol)**: يحدد عنوان MAC للجهاز التالي في المسار (مثل الموجه/Router) لضمان وصول البيانات للمكان الصحيح.
 
 **HTTPS (Hypertext Transfer Protocol Secure)**: يوفر اتصالاً آمناً مشفراً باستخدام SSL/TLS بين المتصفح والخادم، مما يحمي البيانات من الاعتراض.
