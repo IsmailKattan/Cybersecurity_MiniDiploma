@@ -1,3 +1,4 @@
+<div dir="rtl">
 
 # Network Architecture بنية الشبكة
 
@@ -186,7 +187,7 @@ Cloud = بنية افتراضية عند CSP
 ##### **b. ثلاث خدمات أساسية من CSP**
 
 * **SaaS:** تطبيق جاهز للاستخدام (Gmail – Google Docs).
-* **IaaS:** خوادم افتراضية + تخزين + شبكات (Virtual Machines, Load Balancers..
+* **IaaS:** خوادم افتراضية + تخزين + شبكات (Virtual Machines, Load Balancers).
 * **PaaS:** بيئة للمطورين لبناء التطبيقات دون إدارة البنية.
 
 هذه المفاهيم مهمة جداً لفهم الهجمات على السحابة (IAM misconfiguration– public buckets– unsecured VMs).
@@ -500,3 +501,4 @@ IP أو **Internet Protocol** مسؤول عن:
 
 ---
 
+</div>

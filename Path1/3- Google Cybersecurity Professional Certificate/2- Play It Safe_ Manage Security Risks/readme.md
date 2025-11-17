@@ -1,4 +1,10 @@
+<div dir="rtl">
+
+<div dir="ltr">
+
 # Play It Safe: Manage Security Risks Course Summary
+
+</div>
 
 # ملخص كورس إدارة المخاطر الأمنية
 
@@ -26,7 +32,7 @@ Date:November , 2025 
 
 ## جدول المحتويات
 
-
+<div dir="ltr">
 
 ### [Security Domains](#Security-Domains)
 
@@ -64,7 +70,6 @@ Date:November , 2025 
 ---
 
 
-
 # Security Domains
 
 
@@ -76,6 +81,7 @@ Date:November , 2025 
 
 ### 1. Security and Risk Management
 
+</div>
 
 
 يُعد هذا المجال الأساس لكل عمل أمني، فهو يحدد أهداف الأمن، كيفية إدارة المخاطر، والامتثال للقوانين.
@@ -112,10 +118,12 @@ Date:November , 2025 
 
 
 
+<div dir="ltr">
 
 
 ### 2. Asset Security
 
+</div>
 
 
 يركّز على حماية الأصول الرقمية والمادية طوال دورة حياتها (تخزين، صيانة، نسخ احتياطي، إتلاف).
@@ -140,12 +148,15 @@ Date:November , 2025 
 
 ***
 
+<div dir="ltr">
 
 
 
 
 ### 3. Security Architecture and Engineering
 
+
+</div>
 
 
 يعنى بتصميم البنية الأمنية باستخدام مبادئ التصميم الآمن.
@@ -181,11 +192,13 @@ Date:November , 2025 
 **تطبيق عملي:** استخدام SIEM لمراقبة الأنشطة المشبوهة مثل محاولات الدخول غير المعتادة.
 
 
+<div dir="ltr">
 
 
 
 ### 4. Communication and Network Security
 
+</div>
 
 
 يركّز على أمان الشبكات المادية واللاسلكية داخل المؤسسة أو عبر الإنترنت.
@@ -208,10 +221,12 @@ Date:November , 2025 
 
 
 
+<div dir="ltr">
 
 
 ### 5. Identity and Access Management (IAM)
 
+</div>
 
 
 التحكم في الوصول عبر التحقق من الهوية، المصادقة، التفويض، والمساءلة.
@@ -245,11 +260,13 @@ Date:November , 2025 
 ***
 
 
+<div dir="ltr">
 
 
 
 ### 6. Security Assessment and Testing
 
+</div>
 
 
 اختبار فعالية الضوابط الأمنية واكتشاف الثغرات.
@@ -276,10 +293,12 @@ Date:November , 2025 
 
 
 
+<div dir="ltr">
 
 
 ### 7. Security Operations
 
+</div>
 
 
 يركّز على إدارة الحوادث الأمنية والاستجابة لها بشكل مستمر.
@@ -309,11 +328,13 @@ Date:November , 2025 
 ***
 
 
+<div dir="ltr">
 
 
 
 ### 8. Software Development Security
 
+</div>
 
 
 دمج الأمان في دورة تطوير البرمجيات (SDLC).
@@ -349,11 +370,13 @@ Date:November , 2025 
 ***
 
 
+<div dir="ltr">
 
 
 
 ## Navigate threats, risks, and vulnerabilities
 
+</div>
 
 
 ### المفاهيم الأساسية
@@ -585,6 +608,7 @@ Date:November , 2025 
 - **المساهمة في خطط استجابة الحوادث** (Incident Response Plans).
 
 
+<div dir="ltr">
 
 
 
@@ -594,6 +618,7 @@ Date:November , 2025 
 
 ## Frameworks and Controls 
 
+</div>
 
 
 ### أولاً: الأطر الأمنية (Security Frameworks)
@@ -720,12 +745,6 @@ Date:November , 2025 
 
 
 
-
-
-### ********
-
-
-
 ### ثالثاً: العلاقة بين الأطر والضوابط
 
 
@@ -808,6 +827,7 @@ Date:November , 2025 
 
 
 
+<div dir="ltr">
 
 
 ## The CIA triad: Confidentiality, integrity, and availability
@@ -822,6 +842,7 @@ Date:November , 2025 
 
 ## NIST frameworks
 
+</div>
 
 
 تُعتبر **الأُطر (Frameworks)** أدوات إرشادية تستخدمها المؤسسات لوضع خطط تهدف إلى **تخفيف المخاطر (mitigate risks)** ومواجهة **التهديدات (threats)** و**الثغرات الأمنية (vulnerabilities)** التي يمكن أن تؤثر على البيانات أو الأصول الحساسة.
@@ -949,11 +970,13 @@ Date:November , 2025 
 في المثال، اتضح أن الموظف كان يشحن هاتفاً مصاباً ببرمجية خبيثة عبر منفذ USB في حاسوبه.
 
 
+<div dir="ltr">
 
 
 
 ## OWASP principles and security audits
 
+</div>
 
 
 تُعد **مبادئ OWASP الأمنية (OWASP Security Principles)** مجموعة من الإرشادات التي تساعد فرق الأمن السيبراني على **تقليل التهديدات والمخاطر** وحماية بيانات وأصول المؤسسة.
@@ -964,10 +987,12 @@ Date:November , 2025 
 
 ***
 
+<div dir="ltr">
 
 
 **1. Minimize the Attack Surface Area (تقليل مساحة الهجوم)**
 
+</div>
 
 
 مساحة الهجوم هي جميع النقاط أو الثغرات التي يمكن للمهاجم استغلالها (مثل قنوات الاتصال، واجهات API، صلاحيات الدخول، أو كلمات المرور الضعيفة).
@@ -975,9 +1000,11 @@ Date:November , 2025 
 &#x20;لتقليلها، تُعطل الميزات غير الضرورية في البرمجيات، ويُقيّد الوصول إلى الموارد، وتُطبّق سياسات كلمات مرور قوية.
 
 
+<div dir="ltr">
 
 **2. Principle of Least Privilege (مبدأ أقل قدر من الصلاحيات)**
 
+</div>
 
 
 يُمنح كل مستخدم **الحد الأدنى من الوصول اللازم** لأداء مهامه.
@@ -986,10 +1013,12 @@ Date:November , 2025 
 
 &#x20;الهدف هو تقليل الضرر في حال تم اختراق الحساب.
 
+<div dir="ltr">
 
 
 **3. Defense in Depth (الدفاع في العمق)**
 
+</div>
 
 
 تعني وجود **طبقات متعددة من الحماية** بحيث لا يؤدي فشل عنصر واحد إلى انهيار النظام بالكامل.
@@ -1016,10 +1045,12 @@ Date:November , 2025 
 
 كل طبقة تعمل بطريقة مختلفة لمواجهة التهديدات.
 
+<div dir="ltr">
 
 
 **4. Separation of Duties (فصل المهام)**
 
+</div>
 
 
 يُمنع شخص واحد من امتلاك صلاحيات كافية لتنفيذ عمل ضار أو احتيالي.
@@ -1028,20 +1059,24 @@ Date:November , 2025 
 
 &#x20;هذا يقلل احتمال إساءة الاستخدام أو الفساد الداخلي.
 
+<div dir="ltr">
 
 
 **5. Keep Security Simple (اجعل الأمان بسيطًا)**
 
+</div>
 
 
 الحلول المعقدة تزيد من احتمالية الأخطاء وصعوبة التعاون بين الفرق.
 
 &#x20;يُفضل تصميم الضوابط الأمنية بطريقة **واضحة وسهلة الإدارة**.
 
+<div dir="ltr">
 
 
 **6. Fix Security Issues Correctly (إصلاح المشكلات الأمنية بشكل صحيح)**
 
+</div>
 
 
 عند وقوع حادث أمني، يجب تحديد **جذر المشكلة (root cause)** بدقة، ثم تصحيحها والتحقق من نجاح الإصلاح.
@@ -1054,30 +1089,36 @@ Date:November , 2025 
 
 ### مبادئ إضافية من OWASP
 
+<div dir="ltr">
 
 
 **7. Establish Secure Defaults (تعيين الإعدادات الآمنة كخيار افتراضي)**
 
+</div>
 
 
 الحالة الافتراضية لأي نظام يجب أن تكون **الأكثر أمانًا**.
 
 &#x20;ينبغي أن يتطلب المستخدم مجهودًا إضافيًا لجعل النظام أقل أمانًا، وليس العكس.
 
+<div dir="ltr">
 
 
 **8. Fail Securely (الفشل الآمن)**
 
+</div>
 
 
 عند فشل أحد الضوابط الأمنية، يجب أن يتحول النظام تلقائيًا إلى **أكثر وضع آمن ممكن**.
 
 &#x20;مثال: إذا تعطل الجدار الناري (Firewall)، يجب أن يغلق كل الاتصالات بدلاً من السماح بكل شيء.
 
+<div dir="ltr">
 
 
 **9. Don’t Trust Services (عدم الثقة بالخدمات الخارجية)**
 
+</div>
 
 
 لا ينبغي افتراض أن الأنظمة التابعة لطرف ثالث (third-party vendors) آمنة بشكل كامل.
@@ -1086,10 +1127,12 @@ Date:November , 2025 
 
 &#x20;مثال: شركة طيران تتحقق من نقاط المكافأة من مزود خارجي قبل عرضها للعميل.
 
+<div dir="ltr">
 
 
 **10. Avoid Security by Obscurity (تجنّب الأمان بالتمويه)**
 
+</div>
 
 
 لا يجب أن يعتمد الأمان على **إخفاء التفاصيل أو الشيفرة المصدرية**.
@@ -1143,11 +1186,13 @@ Date:November , 2025 
 ***
 
 
+<div dir="ltr">
 
 
 
 ### Security Audits (عمليات التدقيق الأمني)
 
+</div>
 
 
 بعد فهم المبادئ والأطر، يُستخدم **التدقيق الأمني (Security Audit)** كوسيلة عملية لتطبيقها وقياس مدى الالتزام بها.
@@ -1210,10 +1255,12 @@ Date:November , 2025 
 
 ### مراحل التدقيق الداخلي (Internal Security Audit)
 
+<div dir="ltr">
 
 
 **1. Establish Scope and Goals (تحديد النطاق والأهداف)**
 
+</div>
 
 
 يُحدد في هذه المرحلة:
@@ -1234,10 +1281,12 @@ Date:November , 2025 
 
 - الأهداف الأمنية المراد تحقيقها (مثل تطبيق NIST CSF أو تقوية التحكم في الصلاحيات)
 
+<div dir="ltr">
 
 
 **2. Conduct Risk Assessment (تقييم المخاطر)**
 
+</div>
 
 
 يُقيّم المخاطر المحتملة التي تهدد الأصول المادية أو الرقمية.
@@ -1248,9 +1297,11 @@ Date:November , 2025 
 
 ********
 
+<div dir="ltr">
 
 
 **3. Complete Controls Assessment (تقييم الضوابط)**
+</div>
 
 
 
@@ -1272,10 +1323,12 @@ Date:November , 2025 
 
 رابط إضافي للمراجعة: [Control categories](https://docs.google.com/document/d/1Ut_H5A9FHwuQEy6_qG6Lfy3zwF6GSJnj3DZTMaNRWEE/template/preview?resourcekey=0-i4dR5qZFqQyfzr8uk3OOmA) 
 
+<div dir="ltr">
 
 
 **4. Assess Compliance (تقييم الامتثال)**
 
+</div>
 
 
 التحقق من توافق الأنظمة والسياسات مع اللوائح المحلية والدولية مثل:
@@ -1288,10 +1341,13 @@ Date:November , 2025 
 
 - **PCI DSS** (لبيانات بطاقات الدفع)
 
+<div dir="ltr">
+
 
 
 **5. Communicate Results (إيصال النتائج)**
 
+</div>
 
 
 يُقدم تقرير نهائي إلى أصحاب القرار يتضمن:
@@ -1375,6 +1431,7 @@ Date:November , 2025 
 - الجمع بين المبادئ، الأطر (NIST, ISO)، والامتثال التنظيمي يضمن للمؤسسة **أمنًا مستدامًا وتحسينًا مستمرًا**.
 
 
+<div dir="ltr">
 
 
 
@@ -1384,6 +1441,7 @@ Date:November , 2025 
 
 ## Logs and SIEM tools
 
+</div>
 
 
 ### **مصادر الـ Logs الأساسية:**
@@ -1401,6 +1459,7 @@ Date:November , 2025 
 - **Server logs (سجلات الخوادم):** تشمل عمليات الدخول، محاولات تسجيل الدخول الفاشلة، وإجراءات متعلقة بالخدمات (Web, Email, File share).
 
 
+<div dir="ltr">
 
 
 
@@ -1410,6 +1469,7 @@ Date:November , 2025 
 
 - SIEM = **Security Information and Event Management**
 
+</div>
 
 
 - تجمع وتحلل السجلات.
@@ -1420,20 +1480,14 @@ Date:November , 2025 
 
 
 
-&nbsp; - Real-time visibility
+    
+    -  Real-time visibility
 
+    - Event monitoring
 
+    - Alerting
 
-&nbsp; - Event monitoring
-
-
-
-&nbsp; - Alerting
-
-
-
-&nbsp; - Centralized log storage
-
+    - Centralized log storage
 
 
 - تحتاج ضبط وتخصيص حسب المنظمة.
@@ -1448,11 +1502,11 @@ Date:November , 2025 
 
 
 
-
+<div dir="ltr">
 
 ## SIEM dashboards
 
-
+</div>
 
 ### **دور SIEM dashboards:**
 
@@ -1472,11 +1526,11 @@ Date:November , 2025 
 
 
 
-
+<div dir="ltr">
 
 ### **Metrics (القياسات):**
 
-
+</div>
 
 - مثل response time, availability, failure rate.
 
@@ -1493,12 +1547,12 @@ Date:November , 2025 
 ***
 
 
-
+<div dir="ltr">
 
 
 ## The future of SIEM tools
 
-
+</div>
 
 يتحدث الدرس عن التحول نحو SIEM في السحابة والتكامل مع AI/ML.
 
@@ -1508,7 +1562,7 @@ Date:November , 2025 
 
 ### **اتجاهات الـ SIEM:**
 
-
+<div dir="ltr">
 
 - **Cloud-hosted SIEM**: بنية تحتية تدار من مزود الخدمة.
 
@@ -1516,7 +1570,7 @@ Date:November , 2025 
 
 - **Cloud-native SIEM**: مبني من الأساس ليعمل في السحابة (scalable, flexible).
 
-
+</div>
 
 - زيادة حجم البيانات بسبب IoT.
 
@@ -1526,23 +1580,17 @@ Date:November , 2025 
 
 
 
-&nbsp; - اكتشاف الشذوذ
+    - اكتشاف الشذوذ
+    - فهم الأنماط
+    - تحليل النصوص الأمنية
 
-
-
-&nbsp; - فهم الأنماط
-
-
-
-&nbsp; - تحليل النصوص الأمنية
-
-
+<div dir="ltr">
 
 
 
 ### **SOAR (Security Orchestration, Automation and Response):**
 
-
+</div>
 
 - أتمتة الاستجابة للحوادث.
 
@@ -1564,17 +1612,17 @@ Date:November , 2025 
 
 
 
-
+<div dir="ltr">
 
 ## Explore common SIEM tools
 
-
+</div>
 
 يوضح أنواع SIEM حسب طريقة الاستضافة وأشهر الأدوات.
 
 
 
-
+<div dir="ltr">
 
 ### **أنواع الاستضافة:**
 
@@ -1591,12 +1639,12 @@ Date:November , 2025 
 - **Hybrid**
 
 
-
+</div>
 
 
 ### **أدوات SIEM الشائعة:**
 
-
+<div dir="ltr">
 
 - **Splunk Enterprise** (self-hosted)
 
@@ -1608,7 +1656,7 @@ Date:November , 2025 
 
 - **Chronicle** من Google (cloud-native)
 
-
+</div>
 
 
 
@@ -1632,21 +1680,21 @@ Date:November , 2025 
 
 
 
-
+<div dir="ltr">
 
 ## More about cybersecurity tools
 
-
+</div>
 
 الدرس يشرح **الفرق بين الأدوات مفتوحة المصدر (Open-source)** والأدوات المملوكة (Proprietary).
 
 
-
+<div dir="ltr">
 
 
 ### **Open-source tools:**
 
-
+</div>
 
 - قابلة للتعديل.
 
@@ -1667,12 +1715,12 @@ Date:November , 2025 
 &nbsp; - **Suricata**: IDS/IPS للكشف عن التهديدات وتحليل الشبكة.
 
 
-
+<div dir="ltr">
 
 
 ### **Proprietary tools:**
 
-
+</div>
 
 - مثل Splunk، Chronicle.
 
@@ -1708,14 +1756,19 @@ Date:November , 2025 
 
 
 
-
+<div dir="ltr">
 
 ## Use SIEM tools to protect organizations
 
-
+</div>
 
 هذا الدرس يشرح أهم لوحات التحكم في Splunk وChronicle وكيف يستخدمها المحللون.
+
+<div dir="ltr">
+
 ## Chronicle Dashboards vs Splunk Dashboards
+
+</div>
 
 | **Chronicle Dashboards** | **Splunk Dashboards** |
 |--------------------------|----------------------|
@@ -1728,7 +1781,7 @@ Date:November , 2025 
 
 ***
 
-
+<div dir="ltr">
 
 
 
@@ -1738,7 +1791,7 @@ Date:November , 2025 
 
 ## Phases of an incident response playbook
 
-
+</div>
 
 الـ **Incident Response Playbook** هو دليل تشغيلي يحتوي على خطوات واضحة للتعامل مع الحوادث الأمنية. الهدف منه توحيد الإجراءات بغض النظر عن الشخص الذي يقوم بالاستجابة.
 
@@ -1747,12 +1800,12 @@ Date:November , 2025 
 يتكوّن من **ست مراحل** بحسب الدرس:
 
 
-
+<div dir="ltr">
 
 
 ### **1. Preparation – التحضير**
 
-
+</div>
 
 بناء الأساس:
 
@@ -1760,21 +1813,21 @@ Date:November , 2025 
 
 
 
-
+<div dir="ltr">
 
 ### **2. Detection and Analysis – الكشف والتحليل**
 
-
+</div>
 
 استخدام الأدوات (مثل SIEM) لتحديد الحوادث وتحليل شدتها وتحديد إن كانت فعلاً Incident أم False Positive.
 
 
 
-
+<div dir="ltr">
 
 ### **3. Containment – الاحتواء**
 
-
+</div>
 
 هدفه منع انتشار الهجوم.
 
@@ -1782,11 +1835,11 @@ Date:November , 2025 
 
 
 
-
+<div dir="ltr">
 
 ### **4. Eradication and Recovery – القضاء والاستعادة**
 
-
+</div>
 
 إزالة آثار الحادث:
 
@@ -1794,22 +1847,22 @@ Date:November , 2025 
 
 
 
-
+<div dir="ltr">
 
 ### **5. Post-Incident Activity – أنشطة ما بعد الحادث**
 
-
+</div>
 
 توثيق الدروس المستفادة، كتابة التقارير، تحليل Root Cause، تحسين الإجراءات.
 
 
 
-
+<div dir="ltr">
 
 ### **6. Coordination – التنسيق**
 
 
-
+</div>
 تشمل:
 
 &#x20;التبليغ للجهات الحكومية أو القانونية، التواصل مع الإدارات الداخلية، الالتزام بالامتثال Compliance.
@@ -1937,12 +1990,12 @@ Preparation ➡️ Detection ➡️ Analysis ➡️ Containment ➡️ Eradicati
 ***
 
 
-
+<div dir="ltr">
 
 
 ## Use a playbook to respond to threats, risks, or vulnerabilities
 
-
+</div>
 
 الـ Playbook يساعد المحلل على معالجة Alerts بشكل منظم.
 
@@ -1951,12 +2004,12 @@ Preparation ➡️ Detection ➡️ Analysis ➡️ Containment ➡️ Eradicati
 الخطوات الأساسية التي ظهرت في المثال التطبيقي:
 
 
-
+<div dir="ltr">
 
 
 ### **1. Assess the alert – تقييم التنبيه**
 
-
+</div>
 
 فحص ما إذا كان التنبيه صحيحًا أم False Positive.
 
@@ -1969,24 +2022,24 @@ Preparation ➡️ Detection ➡️ Analysis ➡️ Containment ➡️ Eradicati
 &#x20;فهم سبب إطلاق SIEM للإنذار
 
 
-
+<div dir="ltr">
 
 
 ### **2. Containment – الاحتواء**
 
-
+</div>
 
 إجراءات لوقف الضرر فورًا:
 
 &#x20;أهم مثال: عزل الجهاز المصاب عن الشبكة.
 
 
-
+<div dir="ltr">
 
 
 ### **3. Eradication and Recovery – القضاء والاستعادة**
 
-
+</div>
 
 إزالة آثار الهجوم واستعادة النظام.
 
@@ -1998,11 +2051,11 @@ Preparation ➡️ Detection ➡️ Analysis ➡️ Containment ➡️ Eradicati
 
 
 
-
+<div dir="ltr">
 
 ### **4. Post-Incident + Coordination**
 
-
+</div>
 
 كتابة التقرير ورفعه للإدارة
 
@@ -2026,10 +2079,11 @@ Preparation ➡️ Detection ➡️ Analysis ➡️ Containment ➡️ Eradicati
 
 
 
-
+<div dir="ltr">
 
 ## Playbooks, SIEM tools, and SOAR tools
 
+</div>
 
 
 ### **العلاقة بين Playbooks و SIEM**
@@ -2104,5 +2158,4 @@ Playbooks توفر إجراءات واضحة
 
 ***
 
-
-
+</div>
