@@ -42,6 +42,8 @@
 
 عند زيارة موقع مثل `www.yummyrecipesforme.org`، تعمل عدة بروتوكولات معاً:
 
+<div dir="rtl">
+
 **TCP (Transmission Control Protocol)**: يؤسس اتصالاً موثوقاً بين جهازين عبر عملية المصافحة الثلاثية (three-way handshake) قبل نقل البيانات. يتحقق من هوية الطرفين ويضمن تسلسل البيانات.
 
 **ARP (Address Resolution Protocol)**: يحدد عنوان MAC للجهاز التالي في المسار (مثل الموجه/Router) لضمان وصول البيانات للمكان الصحيح.
@@ -49,6 +51,8 @@
 **HTTPS (Hypertext Transfer Protocol Secure)**: يوفر اتصالاً آمناً مشفراً باستخدام SSL/TLS بين المتصفح والخادم، مما يحمي البيانات من الاعتراض.
 
 **DNS (Domain Name System)**: يترجم أسماء النطاقات (domain names) إلى عناوين IP قابلة للتوجيه في الشبكة.
+
+</div>
 
 ##### الأهمية الأمنية
 
