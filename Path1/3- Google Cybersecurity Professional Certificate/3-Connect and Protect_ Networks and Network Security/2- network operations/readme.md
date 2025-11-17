@@ -45,6 +45,7 @@
 <div dir="rtl">
 
 **TCP (Transmission Control Protocol)**:
+
  يؤسس اتصالاً موثوقاً بين جهازين عبر عملية المصافحة الثلاثية (three-way handshake) قبل نقل البيانات. يتحقق من هوية الطرفين ويضمن تسلسل البيانات.
 
 **ARP (Address Resolution Protocol)**: يحدد عنوان MAC للجهاز التالي في المسار (مثل الموجه/Router) لضمان وصول البيانات للمكان الصحيح.
