@@ -61,23 +61,28 @@
 ![network devices](./images/network-devices.png)
 
 **Hub**
+
 جهاز بدائي يُرسل البيانات لجميع المنافذ. غير آمن لأنه يسمح بالتنصت بسهولة (Packet sniffing). استخدامه اليوم نادر.
 
 **Switch**
+
 أذكى من hub. يرسل البيانات فقط للوجهة عبر MAC address table. يوفر أداء وأماناً أفضل.
 هذا الجهاز جزء مهم من أي سيناريو سيبراني (VLANs, Port Security).
 
 **Router**
+
 ![modems and wireless access points](./images/modems-and-wireless-access-points.png)
 يصل بين الشبكات عبر التوجيه باستخدام **IP address**.
 يسمح بوصول WAN والإنترنت.
 جزء أساسي لأي عملية تحليل ترافق، IDS/IPS، Firewalls.
 
 **Modem**
+
 يربط شبكتك بمزود الخدمة ISP عبر الإنترنت.
 
 ![wireless access poits](./images/wireles-access-point.png)
 **Virtualization tools**
+
 توفر وظائف الشبكة نفسها بشكل افتراضي داخل السحابة.
 هذا مهم جداً لمن يريد الأمن السحابي (Cloud Security).
 
