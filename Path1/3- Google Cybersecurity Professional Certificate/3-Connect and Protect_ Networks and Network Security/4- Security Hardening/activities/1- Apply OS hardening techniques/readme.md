@@ -46,19 +46,15 @@
 
 [إليك القالب الذي ستستخدمه](https://docs.google.com/document/d/1bmTZQGiYdJSgwQ08IpXWEUWhnKMVbJ2KZxsheZhzMMs/template/preview)
 
-**Link to template:**  
+
+---
+
+## الخطوة 2: الوصول إلى المواد الداعمة
 
 [سجلات tcpdump](https://docs.google.com/document/d/1HDAQTLSK5CyPLPHeLI0s75kNE-kA2kG0NFJoZlz0xCc/template/preview?resourcekey=0-vDSHnW4qKxOOQtsZeGRUeQ) 
 
 [كيف تقرأ سجلات tcpdump](https://docs.google.com/document/d/1zuVm_KixJqoHxrMefsxG0bi1tB6RYBQsXkPHIWxdRag/template/preview#heading=h.shz1bcdh2tm3)
 
----
-
-## الخطوة 2: الوصول إلى المواد الداعمة
-اضغط على الروابط ثم اختر **Use Template**:
-
-**Links to supporting materials:**  
-<رابطان سنعمل عليهما لاحقًا>
 
 ---
 
