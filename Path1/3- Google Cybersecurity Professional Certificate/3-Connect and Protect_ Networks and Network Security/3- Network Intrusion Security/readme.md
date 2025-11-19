@@ -139,6 +139,9 @@
 
 أهمية وجود عمليات موزعة عبر مضيفات (Hosts) يمكن توسيع نطاقها ديناميكياً، بحيث يمكن استمرار العمليات إذا توقفت البنية التحتية الأساسية.
 
+
+[إليك تمرينا لتحليل مخرجات tcpdump](https://github.com/IsmailKattan/Cybersecurity_MiniDiploma/tree/main/Path1/3-%20Google%20Cybersecurity%20Professional%20Certificate/3-Connect%20and%20Protect_%20Networks%20and%20Network%20Security/3-%20Network%20Intrusion%20Security/activities/1-%20Analyze%20network%20layer%20communication)
+
 ---
 
 ## التنصت الضار على الحزم (Malicious Packet Sniffing)
@@ -217,6 +220,8 @@
 - مراقبة حركة المرور غير العادية باستخدام جدران حماية متقدمة
 
 ---
+
+[هاك تمرين تحليل هجمة dos](https://github.com/IsmailKattan/Cybersecurity_MiniDiploma/tree/main/Path1/3-%20Google%20Cybersecurity%20Professional%20Certificate/3-Connect%20and%20Protect_%20Networks%20and%20Network%20Security/3-%20Network%20Intrusion%20Security/activities/2-%20Analyze%20network%20attacks)
 
 ## ملاحظات ختامية
 
