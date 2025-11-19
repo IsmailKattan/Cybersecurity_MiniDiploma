@@ -159,7 +159,7 @@ Password Policies
 تستخدم المنظمات سياسات كلمات المرور لتوحيد ممارسات كلمة المرور الجيدة في جميع أنحاء الأعمال. يمكن أن تتضمن السياسات إرشادات حول مدى تعقيد كلمة المرور، عدد مرات تحديث كلمات المرور، ما إذا كان يمكن إعادة استخدام كلمات المرور أم لا، وما إذا كانت هناك حدود لعدد المرات التي يمكن للمستخدم فيها محاولة تسجيل الدخول قبل تعليق حسابه.
 
 ---
-[تدريب على حماية نظام التشغيل]()
+[تدريب على حماية نظام التشغيل](https://github.com/IsmailKattan/Cybersecurity_MiniDiploma/tree/main/Path1/3-%20Google%20Cybersecurity%20Professional%20Certificate/3-Connect%20and%20Protect_%20Networks%20and%20Network%20Security/4-%20Security%20Hardening/activities/1-%20Apply%20OS%20hardening%20techniques)
 
 ---
 
@@ -341,6 +341,9 @@ Security Operations Center (SOC)
 
 ---
 
+[تدريب على تحليل أمان الشبكة](https://github.com/IsmailKattan/Cybersecurity_MiniDiploma/tree/main/Path1/3-%20Google%20Cybersecurity%20Professional%20Certificate/3-Connect%20and%20Protect_%20Networks%20and%20Network%20Security/4-%20Security%20Hardening/activities/2-%20Analysis%20of%20network%20hardening)
+
+---
 ## أمان الشبكة في السحابة Cloud Security
 
 ### ما هي الشبكة السحابية؟
