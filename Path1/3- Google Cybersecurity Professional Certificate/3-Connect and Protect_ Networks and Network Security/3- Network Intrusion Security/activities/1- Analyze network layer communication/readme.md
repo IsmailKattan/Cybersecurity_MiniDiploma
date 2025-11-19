@@ -240,3 +240,11 @@ Cybersecurity Incident Report: Network Traffic Analysis
 
 
 ---
+
+[بمكنك الوصول إلى مصدر الحل من هنا](https://docs.google.com/document/d/11YIrN6R3fTqw7AWeh_4YCB4QXK8VnO4_CYPSK2MU5xc/edit?tab=t.0#heading=h.rkogpw759h9x)
+
+
+[كما يمكنك الوصول إلى مصدر شرح الحل من هنا](https://docs.google.com/document/d/19kE466MVHdIRk86EOkUFvbepahRIMMIu5lDDgCBkg0E/template/preview#heading=h.rkogpw759h9x)
+
+
+---
