@@ -1,3 +1,5 @@
+<div dir="rtl">
+
 # ملخص المختبرات العملية - Module 1
 
 ## فهرس المختبرات
@@ -26,19 +28,24 @@
 ### الخطوات العملية
 
 #### الخطوة 1: فتح أداة cryptii
-زيارة موقع cryptii
+زيارة موقع [cryptii](https://cryptii.com/)
 
 #### الخطوة 2: اختيار نوع التشفير
 - اختيار ENCODE من الصفحة الرئيسية
+![cryptoanalysis-Image%201.png](./images/cryptoanalysis-Image%201.png)
 - اختيار Caesar cipher من قائمة الخيارات
+![cryptoanalysis-Image%202.png](./images/cryptoanalysis-Image%202.png)
+
 
 #### الخطوة 3: إدخال النص المشفر
 مثال: `"Wklv lv d whvw phvvdjh."`
+![cryptoanalysis-Image%203.png](./images/cryptoanalysis-Image%203.png)
 
 #### الخطوة 4: فك التشفير
 - **طريقة يدوية Manual Decryption**: تجربة قيم Shift من 1 إلى 25
 - **Brute Force**: تجربة كل القيم حتى الحصول على نص مقروء
 - في المثال: Shift value = 23 ينتج plaintext مقروء
+![cryptoanalysis-Image%204.png](./images/cryptoanalysis-Image%204.png)
 
 ### التمارين العملية
 
@@ -478,3 +485,5 @@ openssl dgst -sha256 shared_secret_eve_bob.bin
 - **Linux utilities**: cat, diff, echo, sha256sum, time
 
 هذه المختبرات توفر أساساً عملياً قوياً لفهم وتطبيق مفاهيم التشفير في سيناريوهات واقعية.
+
+</div>
